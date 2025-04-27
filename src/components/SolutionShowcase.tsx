@@ -185,7 +185,7 @@ export const SolutionShowcase: React.FC = () => {
     <section 
       ref={sectionRef}
       id="solutions"
-      className="pt-20 md:pt-24 pb-16 md:pb-24 bg-white relative overflow-hidden border-t-0"
+      className="pt-16 md:pt-20 pb-16 md:pb-24 bg-white relative overflow-hidden border-t-0"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white">
@@ -197,8 +197,8 @@ export const SolutionShowcase: React.FC = () => {
       <div 
         className="absolute left-0 right-0 w-full overflow-hidden" 
         style={{ 
-          top: '-2px', 
-          height: '70px',
+          top: '-1px', 
+          height: '60px',
           zIndex: 10 
         }}
       >

@@ -62,11 +62,11 @@ export const Features: React.FC = () => {
 
   return (
     <section
-      className="relative py-24 md:py-32 overflow-hidden pb-40 md:pb-48 lg:pb-56 mt-[-60px] bg-gradient-to-b from-transparent to-gray-50"
+      className="relative py-24 md:py-32 overflow-hidden pb-28 md:pb-32 lg:pb-36 mt-[-60px] bg-white"
       id="features"
     >
       {/* White background for Features section */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/90 to-gray-50 z-0"></div>
+      <div className="absolute inset-0 bg-white z-0"></div>
       
       <div className="container mx-auto px-4 relative z-20" ref={ref}>
         <motion.div 

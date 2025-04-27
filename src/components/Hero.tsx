@@ -430,7 +430,7 @@ export const Hero: React.FC = () => {
       </motion.div>
       
       {/* Enhanced gradient transition to Features section */}
-      <div className="absolute bottom-0 left-0 right-0 w-full h-[15vh] bg-gradient-to-b from-primary-800/90 to-transparent z-10"></div>
+      <div className="absolute bottom-0 left-0 right-0 w-full h-[15vh] bg-gradient-to-b from-primary-800/90 to-white z-10"></div>
       
       {/* Subtle noise texture for visual richness */}
       <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-10 z-5" 
