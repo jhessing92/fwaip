@@ -1,45 +1,45 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin, Github } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 import { Logo } from './ui/Logo';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1">
-          <div className="text-center mx-auto">
+      <div className="container mx-auto px-4 md:px-6 py-10 md:py-12">
+        <div className="flex flex-col items-center justify-center">
+          <div className="mb-6">
             <Logo variant="light" />
-            <p className="mt-4 text-gray-400 max-w-xs mx-auto">
-              We help businesses transform ideas into impactful digital experiences
-              that drive growth and deliver exceptional results.
-            </p>
-            {/* Hidden social media links */}
-            <div className="hidden">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook size={20} />
-                <span className="sr-only">Facebook</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter size={20} />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram size={20} />
-                <span className="sr-only">Instagram</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Linkedin size={20} />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Github size={20} />
-                <span className="sr-only">GitHub</span>
-              </a>
-            </div>
           </div>
           
+          <p className="text-gray-400 text-sm md:text-base text-center max-w-md mx-auto mb-8">
+            We help businesses transform ideas into impactful digital experiences
+            that drive growth and deliver exceptional results.
+          </p>
+          
+          {/* Single LinkedIn link */}
+          <div className="mb-8">
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={18} className="text-gray-300" />
+            </a>
+          </div>
+          
+          <div className="border-t border-gray-800 pt-6 w-full max-w-md">
+            <p className="text-xs text-gray-500 text-center">
+              © {new Date().getFullYear()} Flywheel AI Partners. All rights reserved.
+            </p>
+          </div>
+        </div>
+        
+        {/* Hidden sections preserved */}
+        <div className="hidden">
           {/* Hidden company links */}
-          <div className="hidden">
+          <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Company</h3>
             <ul className="space-y-3">
               <li>
@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
           </div>
           
           {/* Hidden resources links */}
-          <div className="hidden">
+          <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Resources</h3>
             <ul className="space-y-3">
               <li>
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
           </div>
           
           {/* Hidden legal links */}
-          <div className="hidden">
+          <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Legal</h3>
             <ul className="space-y-3">
               <li>
@@ -102,18 +102,6 @@ export const Footer: React.FC = () => {
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">GDPR Compliance</a>
               </li>
             </ul>
-          </div>
-        </div>
-        
-        {/* Hidden copyright and tagline */}
-        <div className="hidden border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} Flywheel AI Partners. All rights reserved.
-          </p>
-          <div className="mt-4 md:mt-0">
-            <p className="text-sm text-gray-500">
-              Designed with excellence. Built with precision.
-            </p>
           </div>
         </div>
       </div>
