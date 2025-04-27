@@ -185,7 +185,7 @@ export const SolutionShowcase: React.FC = () => {
     <section 
       ref={sectionRef}
       id="solutions"
-      className="pt-12 md:pt-16 pb-16 md:pb-24 bg-white relative overflow-hidden border-t-0"
+      className="pt-20 md:pt-24 pb-16 md:pb-24 bg-white relative overflow-hidden border-t-0"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white">
@@ -193,8 +193,27 @@ export const SolutionShowcase: React.FC = () => {
         <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(81,147,179,0.05)_1px,transparent_1px)] bg-[length:32px_32px]" />
       </div>
 
-      {/* Decorative top element to match the wave */}
-      <div className="absolute top-0 left-0 right-0 h-12 md:h-16 bg-white z-5"></div>
+      {/* Wave Section Divider - coming up from Solutions section */}
+      <div 
+        className="absolute left-0 right-0 w-full overflow-hidden" 
+        style={{ 
+          top: '-2px', 
+          height: '70px',
+          zIndex: 10 
+        }}
+      >
+        <svg 
+          className="absolute bottom-0 w-full h-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path 
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+            fill="white"
+          />
+        </svg>
+      </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 

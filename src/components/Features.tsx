@@ -62,7 +62,7 @@ export const Features: React.FC = () => {
 
   return (
     <section
-      className="relative py-24 md:py-32 overflow-hidden pb-32 md:pb-48 lg:pb-64 mt-[-60px] bg-gradient-to-b from-transparent to-gray-50"
+      className="relative py-24 md:py-32 overflow-hidden pb-40 md:pb-48 lg:pb-56 mt-[-60px] bg-gradient-to-b from-transparent to-gray-50"
       id="features"
     >
       {/* White background for Features section */}
@@ -150,42 +150,7 @@ export const Features: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Enhanced Wave Section Divider */}
-      <div className="absolute bottom-0 left-0 right-0 w-full" style={{ zIndex: 5 }}>
-        <div className="wave-divider relative h-24 md:h-36 lg:h-44 overflow-hidden">
-          <svg 
-            className="absolute bottom-0 w-full"
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            style={{ height: '150%', width: '100%' }}
-          >
-            <path 
-              d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" 
-              fill="white"
-              className="shadow-lg"
-            />
-          </svg>
-          
-          {/* Secondary decorative wave */}
-          <svg 
-            className="absolute bottom-0 w-full opacity-50"
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            style={{ height: '130%', width: '100%', transform: 'translateY(10px)' }}
-          >
-            <path 
-              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" 
-              fill="white"
-              opacity="0.25"
-            />
-          </svg>
-          
-          {/* Decorative dots for visual interest */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(81,147,179,0.1),transparent_15%)]"></div>
-        </div>
-      </div>
+      {/* No wave divider here - moved to Solutions component */}
     </section>
   );
 };
