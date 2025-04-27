@@ -67,7 +67,7 @@ export const Testimonials: React.FC = () => {
   };
 
   return (
-    <section className="py-32 bg-[#001219] relative overflow-hidden">
+    <section className="py-20 md:py-32 bg-[#001219] relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:32px_32px]" />
       </div>
@@ -77,7 +77,7 @@ export const Testimonials: React.FC = () => {
 
       <div className="container mx-auto px-4 relative">
         <motion.div 
-          className="text-center mb-20"
+          className="text-center mb-10 md:mb-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -92,16 +92,16 @@ export const Testimonials: React.FC = () => {
           >
             Client Success Stories
           </motion.span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-white">
             Trusted by Industry Leaders
           </h2>
-          <p className="text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-base md:text-xl text-white/60 max-w-3xl mx-auto">
             See how leading enterprises are transforming their operations with our AI infrastructure solutions.
           </p>
         </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          <div className="relative h-[400px]">
+          <div className="relative h-[450px] md:h-[400px]">
             <AnimatePresence initial={false} custom={activeIndex}>
               {testimonials.map((testimonial, index) => (
                 index === activeIndex && (
@@ -118,23 +118,24 @@ export const Testimonials: React.FC = () => {
                       opacity: { duration: 0.2 }
                     }}
                   >
-                    <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 h-full">
-                      <div className="grid md:grid-cols-2 gap-8 h-full">
+                    <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-4 md:p-8 h-full">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 h-full">
+                        {/* Content */}
                         <div className="flex flex-col justify-between">
                           <div>
-                            <div className="flex gap-1 mb-6">
+                            <div className="flex gap-1 mb-4 md:mb-6">
                               {[...Array(testimonial.rating)].map((_, i) => (
-                                <Star key={i} size={20} className="text-secondary-400 fill-secondary-400" />
+                                <Star key={i} size={16} className="text-secondary-400 fill-secondary-400" />
                               ))}
                             </div>
-                            <Quote size={48} className="text-secondary-400/30 mb-6" />
-                            <blockquote className="text-xl md:text-2xl font-medium mb-8 text-white leading-relaxed">
+                            <Quote size={36} className="text-secondary-400/30 mb-3 md:mb-6" />
+                            <blockquote className="text-lg md:text-2xl font-medium mb-6 text-white leading-relaxed">
                               "{testimonial.content}"
                             </blockquote>
                           </div>
                           
                           <div className="flex items-center mt-auto">
-                            <div className="w-12 h-12 rounded-full overflow-hidden mr-4 border-2 border-secondary-400/20">
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden mr-3 md:mr-4 border-2 border-secondary-400/20">
                               <img
                                 src={testimonial.image}
                                 alt={testimonial.author}
@@ -142,18 +143,19 @@ export const Testimonials: React.FC = () => {
                               />
                             </div>
                             <div>
-                              <p className="font-semibold text-white">{testimonial.author}</p>
-                              <p className="text-white/60 text-sm">{testimonial.role}</p>
+                              <p className="font-semibold text-white text-sm md:text-base">{testimonial.author}</p>
+                              <p className="text-white/60 text-xs md:text-sm">{testimonial.role}</p>
                             </div>
                           </div>
                         </div>
                         
-                        <div className="flex items-center justify-center">
-                          <div className="text-center">
-                            <div className="text-6xl md:text-7xl font-bold text-secondary-400 mb-4">
+                        {/* Stats - Mobile: at the top, Desktop: on the right */}
+                        <div className="md:flex md:items-center md:justify-center order-first md:order-last mb-6 md:mb-0">
+                          <div className="text-center bg-white/5 backdrop-blur-sm p-3 md:p-0 rounded-xl md:rounded-none">
+                            <div className="text-5xl md:text-7xl font-bold text-secondary-400 mb-1 md:mb-4">
                               {testimonial.stats.value}
                             </div>
-                            <p className="text-lg text-white/60">
+                            <p className="text-base md:text-lg text-white/60">
                               {testimonial.stats.label}
                             </p>
                           </div>
@@ -166,7 +168,7 @@ export const Testimonials: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          <div className="flex justify-center mt-8 space-x-4">
+          <div className="flex justify-center mt-6 md:mt-8 space-x-4">
             <button
               onClick={prevTestimonial}
               className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"

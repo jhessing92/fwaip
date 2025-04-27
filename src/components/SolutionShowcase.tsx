@@ -322,7 +322,8 @@ export const SolutionShowcase: React.FC = () => {
                         <p className="text-[10px] md:text-sm text-gray-600 font-medium">
                           {metric.label}
                         </p>
-                        <p className="text-[9px] md:text-xs text-gray-500 mt-0.5 md:mt-1 leading-tight">
+                        {/* Show descriptions only on desktop */}
+                        <p className="hidden md:block text-xs text-gray-500 mt-1 leading-tight">
                           {metric.description}
                         </p>
                       </motion.div>
@@ -347,9 +348,9 @@ export const SolutionShowcase: React.FC = () => {
                             <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-green-500 mr-1 md:mr-1.5 mt-0.5 flex-shrink-0" />
                             <span className="text-xs md:text-sm text-gray-700 font-medium">{feature}</span>
                           </div>
-                          {/* Force display of feature descriptions with appropriate styling */}
+                          {/* Show feature descriptions only on desktop */}
                           {selectedIndustry.featureDescriptions && (
-                            <div className="ml-4.5 md:ml-6 text-[11px] md:text-xs text-gray-600 mt-1 block">
+                            <div className="hidden md:block ml-6 text-xs text-gray-600 mt-1">
                               {selectedIndustry.featureDescriptions[index]}
                             </div>
                           )}
