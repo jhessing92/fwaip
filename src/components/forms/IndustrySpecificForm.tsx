@@ -26,21 +26,8 @@ const IndustrySpecificForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await submitForm({
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      company: formData.company.trim(),
-      phoneNumber: formData.phoneNumber.trim(),
-      jobTitle: formData.jobTitle.trim(),
-      companySize: formData.companySize.trim(),
-      timeframe: formData.timeframe.trim(),
-      message: formData.message.trim(),
-      currentChallenges: formData.currentChallenges.trim(),
+      ...formData,
       formName: `${industry} Industry Solution`,
-      formType: 'industry-specific',
-      timestamp: new Date().toISOString(),
-      industry: industry || '',
-      source: source || '',
-      ctaText: ctaText || '',
     });
   };
 

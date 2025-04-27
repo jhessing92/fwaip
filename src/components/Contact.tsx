@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Building2, Users, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
-import { useForm } from '../context/FormContext';
 
 const industries = [
   'Healthcare & Insurance',
@@ -14,7 +13,6 @@ const industries = [
 ];
 
 export const Contact: React.FC = () => {
-  const { submitForm } = useForm();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -67,25 +65,11 @@ export const Contact: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validate()) {
-      try {
-        await submitForm({
-          ...formData,
-          formName: 'Contact Form',
-          source: 'Contact Page',
-          formType: 'contact',
-          timestamp: new Date().toISOString(),
-          formVersion: '1.0',
-          formLocation: 'Contact Section',
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          company: formData.company.trim(),
-          industry: formData.industry.trim(),
-          message: formData.message.trim(),
-        });
+      setTimeout(() => {
         setIsSubmitted(true);
         setFormData({
           name: '',
@@ -94,10 +78,7 @@ export const Contact: React.FC = () => {
           industry: '',
           message: '',
         });
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        // You might want to show an error message to the user here
-      }
+      }, 500);
     }
   };
 
