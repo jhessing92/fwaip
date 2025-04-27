@@ -5,19 +5,19 @@ import { Logo } from './ui/Logo';
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="container mx-auto px-4 md:px-6 py-10 md:py-12">
+      <div className="container mx-auto px-5 py-8 md:py-12">
         <div className="flex flex-col items-center justify-center">
-          <div className="mb-6">
+          <div className="mb-5 md:mb-6">
             <Logo variant="light" />
           </div>
           
-          <p className="text-gray-400 text-sm md:text-base text-center max-w-md mx-auto mb-8">
+          <p className="text-gray-400 text-sm md:text-base text-center max-w-md mx-auto mb-6 md:mb-8 px-2">
             We help businesses transform ideas into impactful digital experiences
             that drive growth and deliver exceptional results.
           </p>
           
           {/* Single LinkedIn link */}
-          <div className="mb-8">
+          <div className="mb-6 md:mb-8">
             <a 
               href="https://linkedin.com" 
               target="_blank" 
@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
             </a>
           </div>
           
-          <div className="border-t border-gray-800 pt-6 w-full max-w-md">
+          <div className="border-t border-gray-800 pt-5 md:pt-6 w-full max-w-md">
             <p className="text-xs text-gray-500 text-center">
               © {new Date().getFullYear()} Flywheel AI Partners. All rights reserved.
             </p>

@@ -79,9 +79,8 @@ export const Hero: React.FC = () => {
   const opacity = useTransform(scrollY, [0, 200], [1, 0]);
   const { openForm } = useForm();
   
-  // Role selection state
+  // Role selection state - use default for mobile to simplify UX
   const [selectedRole, setSelectedRole] = useState<'default' | 'technical' | 'operations' | 'security' | 'finance'>('default');
-  const [showMobileRoleMenu, setShowMobileRoleMenu] = useState(false);
   const content = roleContent[selectedRole];
 
   // Refs for scroll animations
@@ -99,7 +98,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen pt-12 pb-16 bg-gradient-to-b from-primary-950 via-primary-900 to-primary-800 overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-screen pt-8 md:pt-12 pb-12 md:pb-16 bg-gradient-to-b from-primary-950 via-primary-900 to-primary-800 overflow-hidden">
       {/* Enhanced Parallax Background */}
       <motion.div 
         className="absolute inset-0 z-0"
@@ -109,7 +108,7 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(81,147,179,0.08)_1px,transparent_1px)] bg-[length:32px_32px]" />
       </motion.div>
       
-      <div className="container mx-auto px-4 sm:px-6 relative z-20 pt-6 sm:pt-8 md:pt-10 pb-12 sm:pb-16 md:pb-24">
+      <div className="container mx-auto px-4 md:px-6 relative z-20 pt-4 md:pt-10 pb-8 md:pb-24">
         <motion.div 
           className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -117,7 +116,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           {/* Hero Section - Main Content */}
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12 pt-4 sm:pt-6 md:pt-8 lg:pt-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-12 pt-4 md:pt-8 lg:pt-10">
             {/* Left Content Column */}
             <div className="text-left w-full lg:max-w-[50%]">
               <motion.div
@@ -126,10 +125,10 @@ export const Hero: React.FC = () => {
                 transition={{ delay: 0.2, duration: 0.8 }}
               >
                 <h1 className="text-cream-50">
-                  <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4 tracking-tight">
+                  <span className="block text-3xl md:text-4xl lg:text-6xl font-bold mb-2 md:mb-4 tracking-tight">
                     Simplify, Automate, Accelerate
                   </span>
-                  <span className="block text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-secondary-400 mb-3 sm:mb-6">
+                  <span className="block text-2xl md:text-3xl lg:text-5xl font-bold text-secondary-400 mb-3 md:mb-6">
                     With Enterprise-Ready AI Systems
                   </span>
                 </h1>
@@ -139,7 +138,7 @@ export const Hero: React.FC = () => {
               <AnimatePresence mode="wait">
                 <motion.p 
                   key={selectedRole} 
-                  className="text-sm sm:text-lg md:text-xl text-cream-100/90 mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed min-h-[60px]"
+                  className="text-base md:text-lg lg:text-xl text-cream-100/90 mt-3 md:mt-6 mb-5 md:mb-8 leading-relaxed"
                   variants={contentVariants}
                   initial="hidden"
                   animate="visible"
@@ -152,7 +151,7 @@ export const Hero: React.FC = () => {
               {/* CTA button with enhanced animation */}
               <div 
                 ref={ctaSectionRef}
-                className="flex flex-col sm:flex-row items-start justify-start gap-3 sm:gap-4 mb-6 sm:mb-10 lg:mb-12"
+                className="flex flex-col sm:flex-row items-start justify-start gap-3 mb-8 md:mb-10 lg:mb-12"
               >
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -166,11 +165,11 @@ export const Hero: React.FC = () => {
                     <Button 
                       variant="primary" 
                       size="large"
-                      className="group text-xs sm:text-base md:text-lg w-full sm:w-auto px-4 sm:px-8 py-2.5 sm:py-4 shadow-md hover:shadow-lg transition-all"
+                      className="group text-sm md:text-base lg:text-lg w-full sm:w-auto px-4 md:px-8 py-3 md:py-4 shadow-md hover:shadow-lg transition-all"
                       onClick={handleCtaClick}
                     >
                       {content.ctaText}
-                      <ArrowRight size={14} className="ml-1.5 sm:ml-2 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </motion.div>
                 </AnimatePresence>
@@ -179,7 +178,7 @@ export const Hero: React.FC = () => {
 
             {/* Right Image Column */}
             <motion.div 
-              className="w-full lg:max-w-[50%] mt-4 sm:mt-6 lg:mt-0"
+              className="w-full lg:max-w-[50%] mt-2 md:mt-6 lg:mt-0"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
@@ -194,7 +193,7 @@ export const Hero: React.FC = () => {
                     src={dashboardImg} 
                     alt="Enterprise AI Dashboard" 
                     className="w-full h-auto"
-                    loading="lazy"
+                    loading="eager"
                     width="500"
                     height="300"
                     decoding="async"
@@ -203,7 +202,7 @@ export const Hero: React.FC = () => {
 
                 {/* Enhanced dashboard UI decoration with subtle animation */}
                 <motion.div 
-                  className="absolute -bottom-4 -right-4 w-16 sm:w-20 h-16 sm:h-20 bg-secondary-400/10 rounded-full blur-md"
+                  className="absolute -bottom-4 -right-4 w-16 md:w-20 h-16 md:h-20 bg-secondary-400/10 rounded-full blur-md"
                   animate={{ 
                     scale: [1, 1.05, 1],
                     opacity: [0.7, 0.9, 0.7]
@@ -215,7 +214,7 @@ export const Hero: React.FC = () => {
                   }}
                 ></motion.div>
                 <motion.div 
-                  className="absolute -top-4 -left-4 w-10 sm:w-12 h-10 sm:h-12 bg-secondary-400/10 rounded-full blur-sm"
+                  className="absolute -top-4 -left-4 w-10 md:w-12 h-10 md:h-12 bg-secondary-400/10 rounded-full blur-sm"
                   animate={{ 
                     scale: [1, 1.1, 1],
                     opacity: [0.6, 0.8, 0.6]
@@ -231,78 +230,17 @@ export const Hero: React.FC = () => {
             </motion.div>
           </div>
           
-          {/* Role Selector - Improved Mobile Version */}
+          {/* Role Selector - Desktop Only */}
           <motion.div 
-            className="max-w-2xl mx-auto mt-8 sm:mt-12 md:mt-16 text-center"
+            className="hidden md:block max-w-2xl mx-auto mt-12 md:mt-16 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
             <div className="text-cream-100/90 text-sm mb-3">Experience working with:</div>
             
-            {/* Mobile Dropdown (visible on small screens) */}
-            <div className="sm:hidden relative">
-              <button 
-                onClick={() => setShowMobileRoleMenu(!showMobileRoleMenu)}
-                className="w-full px-4 py-3 rounded-md text-sm font-medium flex items-center justify-between bg-white/10 text-cream-100 hover:bg-white/20 transition-all"
-              >
-                <span className="flex items-center gap-2">
-                  {selectedRole === 'technical' && <User size={14} />}
-                  {selectedRole === 'operations' && <BarChart3 size={14} />}
-                  {selectedRole === 'security' && <ShieldCheck size={14} />}
-                  {selectedRole === 'finance' && <DollarSign size={14} />}
-                  {selectedRole === 'default' ? 'Select your focus' : 
-                    selectedRole === 'technical' ? 'Technical Teams' :
-                    selectedRole === 'operations' ? 'Operations' :
-                    selectedRole === 'security' ? 'Security & Compliance' : 'Finance'
-                  }
-                </span>
-                <ChevronDown size={14} className={`transition-transform ${showMobileRoleMenu ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {/* Enhanced animation for dropdown menu */}
-              <AnimatePresence>
-                {showMobileRoleMenu && (
-                  <motion.div 
-                    className="absolute z-20 mt-1 w-full rounded-md shadow-lg bg-white/10 backdrop-blur-md border border-white/10 overflow-hidden"
-                    initial={{ opacity: 0, y: -10, height: 0 }}
-                    animate={{ opacity: 1, y: 0, height: "auto" }}
-                    exit={{ opacity: 0, y: -10, height: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="py-1">
-                      <button
-                        onClick={() => { setSelectedRole('technical'); setShowMobileRoleMenu(false); }}
-                        className="flex items-center gap-2 w-full px-4 py-3 text-left text-sm text-cream-100 hover:bg-white/10"
-                      >
-                        <User size={14} /> Technical Teams
-                      </button>
-                      <button
-                        onClick={() => { setSelectedRole('operations'); setShowMobileRoleMenu(false); }}
-                        className="flex items-center gap-2 w-full px-4 py-3 text-left text-sm text-cream-100 hover:bg-white/10"
-                      >
-                        <BarChart3 size={14} /> Operations
-                      </button>
-                      <button
-                        onClick={() => { setSelectedRole('security'); setShowMobileRoleMenu(false); }}
-                        className="flex items-center gap-2 w-full px-4 py-3 text-left text-sm text-cream-100 hover:bg-white/10"
-                      >
-                        <ShieldCheck size={14} /> Security & Compliance
-                      </button>
-                      <button
-                        onClick={() => { setSelectedRole('finance'); setShowMobileRoleMenu(false); }}
-                        className="flex items-center gap-2 w-full px-4 py-3 text-left text-sm text-cream-100 hover:bg-white/10"
-                      >
-                        <DollarSign size={14} /> Finance
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-            
-            {/* Desktop Buttons (hidden on mobile) - with enhanced transitions */}
-            <div className="hidden sm:flex flex-wrap justify-center gap-3">
+            {/* Desktop Buttons */}
+            <div className="flex flex-wrap justify-center gap-3">
               <motion.button 
                 onClick={() => setSelectedRole('technical')}
                 className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'technical' 
@@ -349,19 +287,19 @@ export const Hero: React.FC = () => {
           {/* Trust Section - with scroll-triggered animation */}
           <div 
             ref={trustSectionRef}
-            className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 pt-8 sm:pt-12"
+            className="mt-10 md:mt-16 lg:mt-24 pt-6 md:pt-8"
           >
             <motion.div 
-              className="bg-white/5 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/10 shadow-lg"
+              className="bg-white/5 backdrop-blur-md rounded-xl p-5 md:p-8 border border-white/10 shadow-lg"
               variants={scrollRevealVariants}
               initial="hidden"
               animate={trustSectionInView ? "visible" : "hidden"}
             >
-              <h2 className="text-white text-center text-lg sm:text-xl font-semibold mb-6 sm:mb-10">Trusted By Industry Leaders</h2>
+              <h2 className="text-white text-center text-lg md:text-xl font-semibold mb-6 md:mb-8">Trusted By Industry Leaders</h2>
               
               <div 
                 ref={clientsRef}
-                className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-24"
+                className="flex flex-wrap items-center justify-center gap-6 md:gap-12 lg:gap-24"
               >
                 <motion.div 
                   className="flex flex-col items-center"
@@ -371,11 +309,11 @@ export const Hero: React.FC = () => {
                   animate={clientsInView ? "visible" : "hidden"}
                   transition={{ delay: 0.1 }}
                 >
-                  <div className="bg-white/10 p-3 sm:p-5 rounded-xl mb-3 backdrop-blur-md shadow-inner">
+                  <div className="bg-white/10 p-3 md:p-5 rounded-xl mb-3 backdrop-blur-md shadow-inner">
                     <img 
                       src={scofflawLogo}
                       alt="Scofflaw Beverage Co. Logo" 
-                      className="h-10 sm:h-12 md:h-16 w-auto brightness-[2.5] contrast-[1.2] filter"
+                      className="h-8 md:h-12 lg:h-16 w-auto brightness-[2.5] contrast-[1.2] filter"
                       loading="lazy"
                       width="120"
                       height="60"
@@ -392,11 +330,11 @@ export const Hero: React.FC = () => {
                   animate={clientsInView ? "visible" : "hidden"}
                   transition={{ delay: 0.2 }}
                 >
-                  <div className="bg-white/10 p-3 sm:p-5 rounded-xl mb-3 backdrop-blur-md shadow-inner">
+                  <div className="bg-white/10 p-3 md:p-5 rounded-xl mb-3 backdrop-blur-md shadow-inner">
                     <img 
                       src={cobbLogo}
                       alt="Cobb County School District Logo" 
-                      className="h-10 sm:h-12 md:h-16 w-auto brightness-[2.5] contrast-[1.2] filter"
+                      className="h-8 md:h-12 lg:h-16 w-auto brightness-[2.5] contrast-[1.2] filter"
                       loading="lazy"
                       width="120" 
                       height="60"
@@ -411,7 +349,7 @@ export const Hero: React.FC = () => {
 
       {/* Scroll indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-cream-100/70 cursor-pointer z-30"
+        className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-cream-100/70 cursor-pointer z-30"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.8 }}
@@ -420,7 +358,7 @@ export const Hero: React.FC = () => {
           featuresSection?.scrollIntoView({ behavior: 'smooth' });
         }}
       >
-        <span className="text-sm mb-2">Scroll to explore</span>
+        <span className="text-xs md:text-sm mb-2">Scroll to explore</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
