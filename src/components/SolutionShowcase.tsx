@@ -185,7 +185,7 @@ export const SolutionShowcase: React.FC = () => {
     <section 
       ref={sectionRef}
       id="solutions"
-      className="pt-2 md:pt-4 pb-16 md:pb-24 bg-white relative overflow-hidden border-t-0"
+      className="pt-12 md:pt-16 pb-16 md:pb-24 bg-white relative overflow-hidden border-t-0"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white">
@@ -193,9 +193,12 @@ export const SolutionShowcase: React.FC = () => {
         <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(81,147,179,0.05)_1px,transparent_1px)] bg-[length:32px_32px]" />
       </div>
 
+      {/* Decorative top element to match the wave */}
+      <div className="absolute top-0 left-0 right-0 h-12 md:h-16 bg-white z-5"></div>
+
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
-          className="text-center mb-8 md:mb-10"
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
