@@ -6,14 +6,15 @@ export const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
+        <div className="grid grid-cols-1">
+          <div className="text-center mx-auto">
             <Logo variant="light" />
-            <p className="mt-4 text-gray-400 max-w-xs">
+            <p className="mt-4 text-gray-400 max-w-xs mx-auto">
               We help businesses transform ideas into impactful digital experiences
               that drive growth and deliver exceptional results.
             </p>
-            <div className="flex space-x-4 mt-6">
+            {/* Hidden social media links */}
+            <div className="hidden">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
@@ -37,7 +38,8 @@ export const Footer: React.FC = () => {
             </div>
           </div>
           
-          <div>
+          {/* Hidden company links */}
+          <div className="hidden">
             <h3 className="text-lg font-semibold mb-4 text-white">Company</h3>
             <ul className="space-y-3">
               <li>
@@ -58,7 +60,8 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           
-          <div>
+          {/* Hidden resources links */}
+          <div className="hidden">
             <h3 className="text-lg font-semibold mb-4 text-white">Resources</h3>
             <ul className="space-y-3">
               <li>
@@ -79,7 +82,8 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           
-          <div>
+          {/* Hidden legal links */}
+          <div className="hidden">
             <h3 className="text-lg font-semibold mb-4 text-white">Legal</h3>
             <ul className="space-y-3">
               <li>
@@ -101,7 +105,8 @@ export const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        {/* Hidden copyright and tagline */}
+        <div className="hidden border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-500">
             © {new Date().getFullYear()} Flywheel AI Partners. All rights reserved.
           </p>
