@@ -26,8 +26,20 @@ const ConsultingForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await submitForm({
-      ...formData,
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      company: formData.company.trim(),
+      phoneNumber: formData.phoneNumber.trim(),
+      jobTitle: formData.jobTitle.trim(),
+      projectType: formData.projectType.trim(),
+      budget: formData.budget.trim(),
+      timeframe: formData.timeframe.trim(),
+      projectDescription: formData.projectDescription.trim(),
       formName: 'Consulting Request',
+      formType: 'consulting',
+      timestamp: new Date().toISOString(),
+      source: source || '',
+      ctaText: ctaText || '',
     });
   };
 

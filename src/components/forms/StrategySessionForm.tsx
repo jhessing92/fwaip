@@ -24,8 +24,18 @@ const StrategySessionForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await submitForm({
-      ...formData,
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      company: formData.company.trim(),
+      phoneNumber: formData.phoneNumber.trim(),
+      jobTitle: formData.jobTitle.trim(),
+      interestArea: formData.interestArea.trim(),
+      message: formData.message.trim(),
       formName: 'Strategy Session',
+      formType: 'strategy-session',
+      timestamp: new Date().toISOString(),
+      source: source || '',
+      ctaText: ctaText || '',
     });
   };
 
