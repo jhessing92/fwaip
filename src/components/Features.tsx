@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Brain, Cog, Network, LineChart, Building2, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -56,23 +56,33 @@ const features = [
 ];
 
 export default function Features() {
-  const { ref, inView } = useInView({
+  const [headerRef, headerInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const headerRef = React.useRef(null);
-  const headerInView = inView;
   const headerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   };
+  
+  // Setup individual feature refs and inView states
+  const featureRefs = features.map(() => useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+    delay: 100
+  }));
 
-  const itemsRef = React.useRef<(HTMLDivElement | null)[]>([]);
-  const itemsInView = React.useRef<boolean[]>(Array(features.length).fill(false));
   const featureVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: (i: number) => ({ 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        delay: i * 0.1,
+        duration: 0.5 
+      }
+    })
   };
 
   return (
@@ -97,54 +107,58 @@ export default function Features() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              ref={el => itemsRef.current[index] = el}
-              className="group flex flex-col bg-cream-50 rounded-xl overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1"
-              variants={featureVariants}
-              initial="hidden"
-              animate={itemsInView.current[index] ? "visible" : "hidden"}
-              custom={index}
-            >
-              <div className="relative w-full aspect-[16/9] overflow-hidden">
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-primary-900/0 z-10"
-                  whileHover={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                ></motion.div>
-                <motion.img
-                  src={feature.image}
-                  alt={feature.title}
-                  className="w-full h-full object-cover object-center"
-                  whileHover={{ 
-                    scale: 1.05,
-                    transition: { duration: 0.4 }
-                  }}
-                  loading="lazy"
-                  width="600"
-                  height="338"
-                />
-              </div>
-              
-              <div className="flex-1 flex flex-col p-5 md:p-6">
-                <h3 className="text-xl md:text-2xl font-bold text-primary-900 mb-3 group-hover:text-primary-700 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 text-sm md:text-base flex-1 mb-4">
-                  {feature.description}
-                </p>
+          {features.map((feature, index) => {
+            const [ref, inView] = featureRefs[index];
+            
+            return (
+              <motion.div
+                key={index}
+                ref={ref}
+                className="group flex flex-col bg-cream-50 rounded-xl overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1"
+                variants={featureVariants}
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
+                custom={index}
+              >
+                <div className="relative w-full aspect-[16/9] overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-primary-900/0 z-10"
+                    whileHover={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  ></motion.div>
+                  <motion.img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-full h-full object-cover object-center"
+                    whileHover={{ 
+                      scale: 1.05,
+                      transition: { duration: 0.4 }
+                    }}
+                    loading="lazy"
+                    width="600"
+                    height="338"
+                  />
+                </div>
                 
-                <motion.div 
-                  className="mt-auto pt-2 flex items-center text-primary-700 font-medium text-sm"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  Learn more <ChevronRight size={16} className="ml-1" />
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
+                <div className="flex-1 flex flex-col p-5 md:p-6">
+                  <h3 className="text-xl md:text-2xl font-bold text-primary-900 mb-3 group-hover:text-primary-700 transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm md:text-base flex-1 mb-4">
+                    {feature.description}
+                  </p>
+                  
+                  <motion.div 
+                    className="mt-auto pt-2 flex items-center text-primary-700 font-medium text-sm"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    Learn more <ChevronRight size={16} className="ml-1" />
+                  </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Mobile-optimized feature grid */}
