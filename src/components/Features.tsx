@@ -88,7 +88,7 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-32 md:pb-40 overflow-hidden relative"
+      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-20 md:pb-40 overflow-hidden relative"
     >
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
@@ -165,7 +165,11 @@ export default function Features() {
         <style>{`
           @media (max-width: 768px) {
             .grid-cols-1 > div {
-              margin-bottom: 1.5rem;
+              margin-bottom: 1.25rem;
+            }
+            
+            .grid-cols-1 > div:last-child {
+              margin-bottom: 0.5rem;
             }
             
             .grid-cols-1 > div .object-cover {

@@ -16,10 +16,10 @@ export const Footer: React.FC = () => {
             that drive growth and deliver exceptional results.
           </p>
           
-          {/* Single LinkedIn link */}
+          {/* LinkedIn link updated */}
           <div className="mb-6 md:mb-8">
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/company/flywheel-ai-partners/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
