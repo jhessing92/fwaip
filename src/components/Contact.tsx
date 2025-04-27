@@ -177,7 +177,7 @@ export const Contact: React.FC = () => {
                   <div>
                     <h4 className="text-lg font-semibold mb-1 text-cream-50">Phone</h4>
                     <a href="tel:+16785179652" className="text-secondary-400 hover:text-secondary-300 transition-colors">
-                      +1 (888) 555-1234
+                      +1 (678) 517-9652
                     </a>
                   </div>
                 </div>
@@ -189,9 +189,9 @@ export const Contact: React.FC = () => {
                   <div>
                     <h4 className="text-lg font-semibold mb-1 text-cream-50">Location</h4>
                     <p className="text-cream-100/70">
-                      100 Innovation Drive<br />
-                      Suite 500<br />
-                      San Francisco, CA 94105
+                      5755 North Point Parkway<br />
+                      Suite 90<br />
+                      Alpharetta, GA 30022
                     </p>
                   </div>
                 </div>

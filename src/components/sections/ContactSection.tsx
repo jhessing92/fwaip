@@ -39,7 +39,7 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-medium text-gray-900">Address</h4>
-                  <p className="text-gray-600 mt-1">123 Innovation Drive, Tech City, CA 94103</p>
+                  <p className="text-gray-600 mt-1">5755 North Point Parkway, Suite 90, Alpharetta, GA 30022</p>
                 </div>
               </div>
 
@@ -63,7 +63,7 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-medium text-gray-900">Phone</h4>
-                  <p className="text-gray-600 mt-1">+1 (555) 123-4567</p>
+                  <p className="text-gray-600 mt-1">+1 (678) 517-9652</p>
                 </div>
               </div>
             </div>
