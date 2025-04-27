@@ -174,6 +174,51 @@ export const Hero: React.FC = () => {
                   </motion.div>
                 </AnimatePresence>
               </div>
+              
+              {/* Desktop Buttons - Enhanced for better clickability - Moved up for desktop */}
+              <div className="hidden md:flex flex-wrap justify-start gap-3 mt-2">
+                <div className="text-cream-100/90 text-sm mr-3 self-center">Experience working with:</div>
+                <motion.button 
+                  onClick={() => setSelectedRole('technical')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'technical' 
+                    ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
+                    : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
+                  whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <User size={14} /> Technical Teams <ChevronRight size={14} className="ml-1 opacity-75" />
+                </motion.button>
+                <motion.button 
+                  onClick={() => setSelectedRole('operations')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'operations' 
+                    ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
+                    : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
+                  whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <BarChart3 size={14} /> Operations <ChevronRight size={14} className="ml-1 opacity-75" />
+                </motion.button>
+                <motion.button 
+                  onClick={() => setSelectedRole('security')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'security' 
+                    ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
+                    : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
+                  whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <ShieldCheck size={14} /> Security & Compliance <ChevronRight size={14} className="ml-1 opacity-75" />
+                </motion.button>
+                <motion.button 
+                  onClick={() => setSelectedRole('finance')}
+                  className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'finance' 
+                    ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
+                    : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
+                  whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <DollarSign size={14} /> Finance <ChevronRight size={14} className="ml-1 opacity-75" />
+                </motion.button>
+              </div>
             </div>
 
             {/* Right Image Column */}
@@ -230,9 +275,9 @@ export const Hero: React.FC = () => {
             </motion.div>
           </div>
           
-          {/* Role Selector - Desktop and Mobile - Enhanced for better clickability */}
+          {/* Role Selector - Mobile Only (Desktop moved above) */}
           <motion.div 
-            className="max-w-2xl mx-auto mt-10 md:mt-16 text-center"
+            className="max-w-2xl mx-auto mt-10 md:mt-16 text-center md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
@@ -240,7 +285,7 @@ export const Hero: React.FC = () => {
             <div className="text-cream-100/90 text-sm mb-3">Experience working with <span className="text-secondary-400 italic animate-pulse">click to view:</span></div>
             
             {/* Mobile Expanded Role Selector - Horizontal Scrollable - Enhanced for better clickability */}
-            <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4">
+            <div className="overflow-x-auto pb-4 -mx-4 px-4">
               <div className="flex space-x-2 min-w-max">
                 <motion.button 
                   onClick={() => setSelectedRole('technical')}
@@ -283,50 +328,6 @@ export const Hero: React.FC = () => {
                   <DollarSign size={14} /> Finance
                 </motion.button>
               </div>
-            </div>
-            
-            {/* Desktop Buttons - Enhanced for better clickability */}
-            <div className="hidden md:flex flex-wrap justify-center gap-3">
-              <motion.button 
-                onClick={() => setSelectedRole('technical')}
-                className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'technical' 
-                  ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
-                  : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <User size={14} /> Technical Teams <ChevronRight size={14} className="ml-1 opacity-75" />
-              </motion.button>
-              <motion.button 
-                onClick={() => setSelectedRole('operations')}
-                className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'operations' 
-                  ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
-                  : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <BarChart3 size={14} /> Operations <ChevronRight size={14} className="ml-1 opacity-75" />
-              </motion.button>
-              <motion.button 
-                onClick={() => setSelectedRole('security')}
-                className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'security' 
-                  ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
-                  : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <ShieldCheck size={14} /> Security & Compliance <ChevronRight size={14} className="ml-1 opacity-75" />
-              </motion.button>
-              <motion.button 
-                onClick={() => setSelectedRole('finance')}
-                className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'finance' 
-                  ? 'bg-secondary-400 text-primary-950 ring-2 ring-white/50 shadow-lg' 
-                  : 'bg-white/10 text-cream-100 hover:bg-white/20 hover:shadow-md'}`}
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <DollarSign size={14} /> Finance <ChevronRight size={14} className="ml-1 opacity-75" />
-              </motion.button>
             </div>
           </motion.div>
 
