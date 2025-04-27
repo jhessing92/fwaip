@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowRight, ChevronDown, User, BarChart3, ShieldCheck, DollarSign, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronDown, User, BarChart3, ShieldCheck, DollarSign, ChevronRight, X } from 'lucide-react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
 import { useForm } from '../context/FormContext';
@@ -108,7 +108,7 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(81,147,179,0.08)_1px,transparent_1px)] bg-[length:32px_32px]" />
       </motion.div>
       
-      <div className="container mx-auto px-4 md:px-6 relative z-20 pt-4 md:pt-10 pb-8 md:pb-24">
+      <div className="container mx-auto px-4 md:px-6 relative z-20 pt-14 md:pt-10 pb-8 md:pb-24">
         <motion.div 
           className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -230,17 +230,59 @@ export const Hero: React.FC = () => {
             </motion.div>
           </div>
           
-          {/* Role Selector - Desktop Only */}
+          {/* Role Selector - Desktop and Mobile */}
           <motion.div 
-            className="hidden md:block max-w-2xl mx-auto mt-12 md:mt-16 text-center"
+            className="max-w-2xl mx-auto mt-10 md:mt-16 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
             <div className="text-cream-100/90 text-sm mb-3">Experience working with:</div>
             
+            {/* Mobile Expanded Role Selector - Horizontal Scrollable */}
+            <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4">
+              <div className="flex space-x-2 min-w-max">
+                <motion.button 
+                  onClick={() => setSelectedRole('technical')}
+                  className={`px-3 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 whitespace-nowrap transition-all ${selectedRole === 'technical' 
+                    ? 'bg-secondary-400 text-primary-950' 
+                    : 'bg-white/10 text-cream-100'}`}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <User size={14} /> Technical
+                </motion.button>
+                <motion.button 
+                  onClick={() => setSelectedRole('operations')}
+                  className={`px-3 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 whitespace-nowrap transition-all ${selectedRole === 'operations' 
+                    ? 'bg-secondary-400 text-primary-950' 
+                    : 'bg-white/10 text-cream-100'}`}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <BarChart3 size={14} /> Operations
+                </motion.button>
+                <motion.button 
+                  onClick={() => setSelectedRole('security')}
+                  className={`px-3 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 whitespace-nowrap transition-all ${selectedRole === 'security' 
+                    ? 'bg-secondary-400 text-primary-950' 
+                    : 'bg-white/10 text-cream-100'}`}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <ShieldCheck size={14} /> Security
+                </motion.button>
+                <motion.button 
+                  onClick={() => setSelectedRole('finance')}
+                  className={`px-3 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 whitespace-nowrap transition-all ${selectedRole === 'finance' 
+                    ? 'bg-secondary-400 text-primary-950' 
+                    : 'bg-white/10 text-cream-100'}`}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <DollarSign size={14} /> Finance
+                </motion.button>
+              </div>
+            </div>
+            
             {/* Desktop Buttons */}
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="hidden md:flex flex-wrap justify-center gap-3">
               <motion.button 
                 onClick={() => setSelectedRole('technical')}
                 className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-all ${selectedRole === 'technical' 
@@ -346,6 +388,49 @@ export const Hero: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Popup for Role Info - Mobile Only */}
+      <AnimatePresence>
+        {selectedRole !== 'default' && (
+          <motion.div 
+            className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-5 mx-2 mb-2 rounded-xl bg-primary-900/95 backdrop-blur-lg border border-white/10 shadow-lg"
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+          >
+            <div className="flex flex-col space-y-3">
+              <div className="flex justify-between items-center mb-1">
+                <div className="flex items-center gap-2">
+                  {selectedRole === 'technical' && <User size={18} className="text-secondary-400" />}
+                  {selectedRole === 'operations' && <BarChart3 size={18} className="text-secondary-400" />}
+                  {selectedRole === 'security' && <ShieldCheck size={18} className="text-secondary-400" />}
+                  {selectedRole === 'finance' && <DollarSign size={18} className="text-secondary-400" />}
+                  <h4 className="text-lg font-bold text-cream-50">
+                    {selectedRole === 'technical' ? 'Technical Teams' : 
+                     selectedRole === 'operations' ? 'Operations' : 
+                     selectedRole === 'security' ? 'Security & Compliance' : 'Finance'}
+                  </h4>
+                </div>
+                <button 
+                  onClick={() => setSelectedRole('default')}
+                  className="text-cream-100/70"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <p className="text-sm text-cream-100/90">{content.subtitle}</p>
+              <Button
+                variant="secondary"
+                className="mt-2 py-2.5"
+                onClick={handleCtaClick}
+              >
+                {content.ctaText} <ArrowRight size={14} className="ml-1.5" />
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Scroll indicator */}
       <motion.div 

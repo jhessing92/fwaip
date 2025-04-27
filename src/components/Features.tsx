@@ -2,6 +2,7 @@ import React from 'react';
 import { Brain, Cog, Network, LineChart, Building2, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { ChevronRight } from 'lucide-react';
 
 const features = [
   {
@@ -54,103 +55,118 @@ const features = [
   }
 ];
 
-export const Features: React.FC = () => {
-  const [ref, inView] = useInView({
+export default function Features() {
+  const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
+  const headerRef = React.useRef(null);
+  const headerInView = inView;
+  const headerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const itemsRef = React.useRef<(HTMLDivElement | null)[]>([]);
+  const itemsInView = React.useRef<boolean[]>(Array(features.length).fill(false));
+  const featureVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
-    <section
-      className="relative py-24 md:py-32 overflow-hidden pb-28 md:pb-32 lg:pb-36 mt-[-60px] bg-white"
-      id="features"
+    <section 
+      id="features" 
+      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-32 md:pb-40 overflow-hidden relative"
     >
-      {/* White background for Features section */}
-      <div className="absolute inset-0 bg-white z-0"></div>
-      
-      <div className="container mx-auto px-4 relative z-20" ref={ref}>
-        <motion.div 
-          className="text-center mb-16 md:mb-24"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+      <div className="container mx-auto px-4 md:px-6">
+        <motion.div
+          ref={headerRef}
+          className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20"
+          initial="hidden"
+          animate={headerInView ? "visible" : "hidden"}
+          variants={headerVariants}
         >
-          <motion.span 
-            className="inline-block px-3 py-1 md:px-4 md:py-1.5 mb-3 md:mb-4 text-xs font-medium uppercase tracking-wider text-secondary-600 bg-secondary-50 rounded-full border border-secondary-100 shadow-md"
-            whileHover={{ scale: 1.05 }}
-          >
-            Enterprise Solutions
-          </motion.span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600">
-            Transform Your Enterprise with AI
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-900 to-primary-700">
+            Empowering Enterprise AI Workflows
           </h2>
-          <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Deploy intelligent systems that integrate seamlessly with your existing infrastructure.
+          <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            Our comprehensive suite of tools empowers teams to build, deploy, and manage AI workflows with confidence.
           </p>
         </motion.div>
 
-        <motion.div 
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: { staggerChildren: 0.1 }
-            }
-          }}
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                show: { opacity: 1, y: 0 }
-              }}
+              ref={el => itemsRef.current[index] = el}
+              className="group flex flex-col bg-cream-50 rounded-xl overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1"
+              variants={featureVariants}
+              initial="hidden"
+              animate={itemsInView.current[index] ? "visible" : "hidden"}
+              custom={index}
             >
-              {/* Image Container */}
-              <div className="relative h-[180px] md:h-[240px] bg-primary-950">
-                <img 
+              <div className="relative w-full aspect-[16/9] overflow-hidden">
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-primary-900/0 z-10"
+                  whileHover={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                ></motion.div>
+                <motion.img
                   src={feature.image}
                   alt={feature.title}
+                  className="w-full h-full object-cover object-center"
+                  whileHover={{ 
+                    scale: 1.05,
+                    transition: { duration: 0.4 }
+                  }}
+                  loading="lazy"
                   width="600"
-                  height="400"
-                  decoding="async"
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  height="338"
                 />
               </div>
-
-              {/* Content Container */}
-              <div className="bg-primary-950 p-4 md:p-6">
-                <div className="flex items-center mb-2 md:mb-3">
-                  <div className="p-1.5 md:p-2 rounded-lg bg-secondary-400/20 text-secondary-400">
-                    {React.cloneElement(feature.icon, {
-                      className: "w-5 h-5 md:w-6 md:h-6"
-                    })}
-                  </div>
-                  <h3 className="text-lg md:text-xl font-semibold text-cream-50 ml-2 md:ml-3">{feature.title}</h3>
-                </div>
-                <p className="text-xs md:text-sm text-cream-100 leading-relaxed">{feature.description}</p>
-              </div>
-
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-primary-950/95 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 z-20 flex items-center justify-center p-4 md:p-6 backdrop-blur-sm">
-                <div className="transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  {React.cloneElement(feature.icon, {
-                    className: "w-10 h-10 md:w-12 md:h-12 mb-3 md:mb-4 mx-auto text-secondary-400"
-                  })}
-                  <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-cream-50 text-center">{feature.title}</h3>
-                  <p className="text-xs md:text-sm text-cream-100 leading-relaxed text-center">{feature.details}</p>
-                </div>
+              
+              <div className="flex-1 flex flex-col p-5 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold text-primary-900 mb-3 group-hover:text-primary-700 transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 text-sm md:text-base flex-1 mb-4">
+                  {feature.description}
+                </p>
+                
+                <motion.div 
+                  className="mt-auto pt-2 flex items-center text-primary-700 font-medium text-sm"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  Learn more <ChevronRight size={16} className="ml-1" />
+                </motion.div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
-      </div>
+        </div>
 
-      {/* No wave divider here - moved to Solutions component */}
+        {/* Mobile-optimized feature grid */}
+        <style>{`
+          @media (max-width: 768px) {
+            .grid-cols-1 > div {
+              margin-bottom: 1.5rem;
+            }
+            
+            .grid-cols-1 > div .object-cover {
+              height: auto !important;
+              max-height: 220px;
+              object-fit: contain !important;
+              background-color: #f7f7f5;
+            }
+            
+            .grid-cols-1 > div .relative.w-full {
+              border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+          }
+        `}</style>
+      </div>
     </section>
   );
-};
+}
