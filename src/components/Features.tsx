@@ -88,7 +88,7 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-20 md:pb-40 overflow-hidden relative"
+      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-28 md:pb-40 overflow-hidden relative"
     >
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
@@ -125,8 +125,11 @@ export default function Features() {
                   <motion.img
                     src={feature.image}
                     alt={feature.title}
-                    className="w-full h-full object-cover object-center transition-transform duration-300"
-                    whileHover={{ scale: 1.05 }}
+                    className="w-full h-full object-cover object-center max-w-full align-middle border-none"
+                    whileHover={{ 
+                      scale: 1.05,
+                      transition: { duration: 0.4 }
+                    }}
                     loading="lazy"
                     width="600"
                     height="338"
@@ -188,6 +191,24 @@ export default function Features() {
             }
           }
         `}</style>
+      </div>
+
+      {/* Wave Section Divider - moved from Solutions, appears at bottom of Features */}
+      <div className="absolute bottom-0 left-0 right-0 w-full" style={{ zIndex: 5 }}>
+        <div className="wave-divider relative h-20 md:h-32 lg:h-40 overflow-hidden">
+          <svg 
+            className="absolute bottom-0 w-full"
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            style={{ height: '100%', width: '100%' }}
+          >
+            <path 
+              d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+              fill="white"
+            />
+          </svg>
+        </div>
       </div>
     </section>
   );

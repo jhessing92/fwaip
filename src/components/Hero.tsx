@@ -237,11 +237,12 @@ export const Hero: React.FC = () => {
                   <img 
                     src={dashboardImg} 
                     alt="Enterprise AI Dashboard" 
-                    className="w-full h-auto"
+                    className="w-full h-auto max-w-full align-middle border-none shadow-2xl rounded-xl"
                     loading="eager"
                     width="500"
                     height="300"
                     decoding="async"
+                    fetchPriority="high"
                   />
                 </div>
 
@@ -360,7 +361,7 @@ export const Hero: React.FC = () => {
                     <img 
                       src={scofflawLogo}
                       alt="Scofflaw Beverage Co. Logo" 
-                      className="h-8 md:h-12 lg:h-16 w-auto brightness-[2.5] contrast-[1.2] filter"
+                      className="h-8 md:h-12 lg:h-16 w-auto max-w-full align-middle border-none filter brightness-[2.5] contrast-[1.2]"
                       loading="lazy"
                       width="120"
                       height="60"
@@ -381,10 +382,11 @@ export const Hero: React.FC = () => {
                     <img 
                       src={cobbLogo}
                       alt="Cobb County School District Logo" 
-                      className="h-8 md:h-12 lg:h-16 w-auto brightness-[2.5] contrast-[1.2] filter"
+                      className="h-8 md:h-12 lg:h-16 w-auto max-w-full align-middle border-none filter brightness-[2.5] contrast-[1.2]"
                       loading="lazy"
                       width="120" 
                       height="60"
+                      decoding="async"
                     />
                   </div>
                 </motion.div>

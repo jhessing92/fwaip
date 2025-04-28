@@ -139,7 +139,11 @@ export const Testimonials: React.FC = () => {
                               <img
                                 src={testimonial.image}
                                 alt={testimonial.author}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover max-w-full align-middle border-none"
+                                loading="lazy"
+                                width="48"
+                                height="48"
+                                decoding="async"
                               />
                             </div>
                             <div>
