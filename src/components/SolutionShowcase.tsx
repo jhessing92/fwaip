@@ -185,15 +185,35 @@ export const SolutionShowcase: React.FC = () => {
     <section 
       ref={sectionRef}
       id="solutions"
-      className="pt-16 md:pt-20 pb-16 md:pb-24 bg-gray-50 relative overflow-hidden border-t-0"
+      className="pt-28 md:pt-32 pb-16 md:pb-24 bg-gray-50 relative overflow-hidden border-t-0"
     >
-      {/* Background Elements - ensure they match bg-gray-50 */}
+      {/* Off-white Wave Divider at the top */}
+      <div 
+        className="absolute top-0 left-0 right-0 w-full overflow-hidden" 
+        style={{ 
+          height: '80px', // Adjust height as needed
+          zIndex: 5,
+          transform: 'translateY(-100%)' // Pulls it up to overlap
+        }}
+      >
+        <svg 
+          className="absolute bottom-0 w-full h-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path 
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+            fill="#f8fafc" // Fill with gray-50 color
+          />
+        </svg>
+      </div>
+
+      {/* Background Elements */}
       <div className="absolute inset-0 bg-gray-50">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(81,147,179,0.05),transparent_70%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(81,147,179,0.03)_1px,transparent_1px)] bg-[length:32px_32px]" />
       </div>
-
-      {/* Removed wave divider from here */}
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
