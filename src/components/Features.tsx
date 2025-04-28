@@ -161,11 +161,13 @@ export default function Features() {
                 <AnimatePresence>
                   {(isExpanded || false) && (
                     <motion.div
-                      className={`absolute inset-0 bg-primary-900/97 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-4 transition-opacity duration-300 ${
-                        isExpanded ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto'
+                      className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-opacity duration-300 ${ 
+                        isExpanded 
+                          ? 'opacity-100 pointer-events-auto'
+                          : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto'
                       }`}
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
+                      animate={{ opacity: isExpanded ? 1 : 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
                     >
