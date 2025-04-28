@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Brain, Cog, Network, LineChart, Building2, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -88,7 +88,7 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-28 md:pb-40 overflow-hidden relative"
+      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-20 md:pb-40 overflow-hidden relative"
     >
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
@@ -137,31 +137,34 @@ export default function Features() {
                   />
                 </div>
                 {/* Title + short description area, always dark background */}
-                <div className="flex-1 flex flex-col justify-center bg-primary-900 px-5 md:px-6 py-5">
-                  <h3 className="text-xl md:text-2xl font-bold text-cream-50 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-cream-100 text-sm md:text-base mb-0">
-                    {feature.description}
-                  </p>
+                <div className="relative flex-1 flex flex-col justify-between bg-primary-900 px-5 md:px-6 py-5">
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-bold text-cream-50 mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-cream-100 text-sm md:text-base mb-4 group-hover:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
+                      {feature.description}
+                    </p>
+                  </div>
+                  {/* Learn more link: visible normally, hidden on hover */}
+                  <motion.div 
+                    className="mt-auto pt-2 flex items-center text-secondary-400 font-medium text-sm md:block group-hover:hidden"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    Learn more <ChevronRight size={16} className="ml-1" />
+                  </motion.div>
                 </div>
                 {/* Hover overlay: covers whole card, shows icon + details (desktop only) */}
                 <motion.div
-                  className="hidden md:flex flex-col items-center justify-center absolute inset-0 bg-primary-900 group-hover:flex group-hover:opacity-100 opacity-0 transition-opacity duration-200 z-20"
+                  className="hidden md:flex flex-col items-center justify-center text-center p-5 absolute inset-0 bg-primary-900/95 backdrop-blur-sm group-hover:flex group-hover:opacity-100 opacity-0 transition-opacity duration-300 z-20"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
                   <span className="mb-3 text-cream-50">{feature.icon}</span>
-                  <span className="text-cream-50 text-lg font-semibold text-center mb-2 px-2">{feature.details}</span>
-                </motion.div>
-                {/* Learn more: hidden on hover (desktop only) */}
-                <motion.div 
-                  className="mt-auto pt-2 flex items-center text-secondary-400 font-medium text-sm px-5 md:px-6 pb-5 md:block group-hover:hidden"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  Learn more <ChevronRight size={16} className="ml-1" />
+                  <h3 className="text-lg font-semibold text-cream-50 mb-2">{feature.title}</h3>
+                  <p className="text-cream-100 text-sm leading-relaxed">{feature.details}</p>
                 </motion.div>
               </motion.div>
             );
