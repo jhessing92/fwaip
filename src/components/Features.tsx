@@ -99,7 +99,6 @@ const DesktopFeatureCard = ({ feature, index, inView }: DesktopFeatureCardProps)
       variants={featureVariants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      custom={index}
     >
       <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
         <motion.img
@@ -164,7 +163,6 @@ const MobileFeatureCard = ({ feature, index, inView, isExpanded, onToggleExpand 
       variants={featureVariants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      custom={index}
     >
       <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
         <motion.img
@@ -276,8 +274,7 @@ export default function Features() {
             const isExpanded = expandedCardIndex === index;
             
             return (
-              <React.Fragment key={index}>
-                {/* Render separate components for mobile and desktop */}
+              <div key={index} ref={ref} className="block">
                 <DesktopFeatureCard 
                   feature={feature} 
                   index={index} 
@@ -291,7 +288,7 @@ export default function Features() {
                   isExpanded={isExpanded}
                   onToggleExpand={handleMobileExpand}
                 />
-              </React.Fragment>
+              </div>
             );
           })}
         </div>
