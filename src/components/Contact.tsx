@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Building2, Users, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
+import { useForm } from '../context/FormContext';
 
 const industries = [
   'Healthcare & Insurance',
@@ -13,6 +14,7 @@ const industries = [
 ];
 
 export const Contact: React.FC = () => {
+  const { submitForm } = useForm();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -65,12 +67,24 @@ export const Contact: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validate()) {
-      setTimeout(() => {
-        setIsSubmitted(true);
+      const trimmedData = Object.fromEntries(
+        Object.entries(formData).map(([key, value]) => 
+          [key, typeof value === 'string' ? value.trim() : value]
+        )
+      );
+
+      try {
+        await submitForm({
+          ...trimmedData,
+          formName: 'Contact Form',
+          formSource: 'Contact Page',
+          formType: 'contact',
+          timestamp: new Date().toISOString(),
+        });
         setFormData({
           name: '',
           email: '',
@@ -78,7 +92,9 @@ export const Contact: React.FC = () => {
           industry: '',
           message: '',
         });
-      }, 500);
+      } catch (error) {
+        console.error('Error submitting contact form:', error);
+      }
     }
   };
 
