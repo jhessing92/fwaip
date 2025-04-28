@@ -121,7 +121,7 @@ export default function Features() {
               <motion.div
                 key={index}
                 ref={ref}
-                className="flex flex-col rounded-xl overflow-hidden bg-white relative shadow-lg"
+                className="flex flex-col rounded-xl overflow-hidden bg-white relative shadow-lg group"
                 variants={featureVariants}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
@@ -160,13 +160,16 @@ export default function Features() {
                 
                 {/* Hover/Expand overlay: covers whole card, shows icon + details */}
                 <motion.div
-                  className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-opacity duration-300 ${ 
+                  className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-opacity duration-300 ${
                     isExpanded 
-                      ? 'opacity-100 pointer-events-auto' // Always show if expanded on mobile
-                      : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto' // Default hidden, show on desktop hover
+                      ? 'opacity-100 pointer-events-auto' // Mobile - expanded when clicked
+                      : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto' // Desktop - show on hover
                   }`}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: isExpanded ? 1 : 0 }}
+                  animate={{ 
+                    opacity: isExpanded ? 1 : 0,
+                    transitionEnd: { display: isExpanded ? 'flex' : 'flex' } 
+                  }}
                   transition={{ duration: 0.3 }}
                 >
                   <button 
