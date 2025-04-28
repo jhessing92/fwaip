@@ -114,48 +114,52 @@ export default function Features() {
               <motion.div
                 key={index}
                 ref={ref}
-                className="group flex flex-col bg-cream-50 rounded-xl overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1"
+                className="group flex flex-col rounded-xl overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1 bg-white relative"
                 variants={featureVariants}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
                 custom={index}
               >
+                {/* Card image */}
                 <div className="relative w-full aspect-[16/9] overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-primary-900/0 z-10"
-                    whileHover={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  ></motion.div>
                   <motion.img
                     src={feature.image}
                     alt={feature.title}
-                    className="w-full h-full object-cover object-center"
-                    whileHover={{ 
-                      scale: 1.05,
-                      transition: { duration: 0.4 }
-                    }}
+                    className="w-full h-full object-cover object-center transition-transform duration-300"
+                    whileHover={{ scale: 1.05 }}
                     loading="lazy"
                     width="600"
                     height="338"
+                    decoding="async"
                   />
                 </div>
-                
-                <div className="flex-1 flex flex-col p-5 md:p-6">
-                  <h3 className="text-xl md:text-2xl font-bold text-primary-900 mb-3 group-hover:text-primary-700 transition-colors">
+                {/* Title + short description area, always dark background */}
+                <div className="flex-1 flex flex-col justify-center bg-primary-900 px-5 md:px-6 py-5">
+                  <h3 className="text-xl md:text-2xl font-bold text-cream-50 mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 text-sm md:text-base flex-1 mb-4">
+                  <p className="text-cream-100 text-sm md:text-base mb-0">
                     {feature.description}
                   </p>
-                  
-                  <motion.div 
-                    className="mt-auto pt-2 flex items-center text-primary-700 font-medium text-sm"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    Learn more <ChevronRight size={16} className="ml-1" />
-                  </motion.div>
                 </div>
+                {/* Hover overlay: covers whole card, shows icon + details (desktop only) */}
+                <motion.div
+                  className="hidden md:flex flex-col items-center justify-center absolute inset-0 bg-primary-900 group-hover:flex group-hover:opacity-100 opacity-0 transition-opacity duration-200 z-20"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <span className="mb-3 text-cream-50">{feature.icon}</span>
+                  <span className="text-cream-50 text-lg font-semibold text-center mb-2 px-2">{feature.details}</span>
+                </motion.div>
+                {/* Learn more: hidden on hover (desktop only) */}
+                <motion.div 
+                  className="mt-auto pt-2 flex items-center text-secondary-400 font-medium text-sm px-5 md:px-6 pb-5 md:block group-hover:hidden"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  Learn more <ChevronRight size={16} className="ml-1" />
+                </motion.div>
               </motion.div>
             );
           })}
