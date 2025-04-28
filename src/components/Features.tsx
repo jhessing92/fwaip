@@ -121,7 +121,7 @@ export default function Features() {
               <motion.div
                 key={index}
                 ref={ref}
-                className="flex flex-col rounded-xl overflow-hidden bg-white relative shadow-lg group"
+                className="flex flex-col rounded-xl overflow-hidden bg-white relative shadow-lg group cursor-pointer"
                 variants={featureVariants}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
@@ -160,13 +160,16 @@ export default function Features() {
                 
                 {/* Hover/Expand overlay: covers whole card, shows icon + details */}
                 <motion.div
-                  className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-opacity duration-300 ${
+                  className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-all duration-300 ${
                     isExpanded 
-                      ? 'opacity-100 pointer-events-auto' // Always show if expanded on mobile
-                      : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto' // Default hidden, show on desktop hover
+                      ? 'opacity-100 pointer-events-auto scale-100' // Always show if expanded on mobile
+                      : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:scale-100 md:group-hover:pointer-events-auto scale-95' // Default hidden, show on desktop hover
                   }`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isExpanded ? 1 : 0 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ 
+                    opacity: isExpanded ? 1 : 0,
+                    scale: isExpanded ? 1 : 0.95
+                  }}
                   transition={{ duration: 0.3 }}
                 >
                   <button 
