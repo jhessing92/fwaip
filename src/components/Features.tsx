@@ -158,32 +158,28 @@ export default function Features() {
                   </motion.button>
                 </div>
                 
-                <AnimatePresence>
-                  {(isExpanded || false) && (
-                    <motion.div
-                      className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-opacity duration-300 ${ 
-                        isExpanded 
-                          ? 'opacity-100 pointer-events-auto'
-                          : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto'
-                      }`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: isExpanded ? 1 : 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <button 
-                        onClick={() => handleMobileExpand(index)} 
-                        className="absolute top-3 right-3 text-cream-100/70 hover:text-cream-50 md:hidden z-30 p-1"
-                        aria-label="Close details"
-                      >
-                        <X size={24} />
-                      </button>
-                      <span className="mb-3 text-cream-50">{React.cloneElement(feature.icon, { className: "w-8 h-8 md:w-10 md:h-10" })}</span>
-                      <h3 className="text-lg md:text-xl font-semibold text-cream-50 mb-2">{feature.title}</h3>
-                      <p className="text-cream-100 text-sm md:text-base leading-relaxed max-w-xs mx-auto">{feature.details}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Hover/Expand overlay: covers whole card, shows icon + details */}
+                <motion.div
+                  className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-opacity duration-300 ${ 
+                    isExpanded 
+                      ? 'opacity-100 pointer-events-auto' // Always show if expanded on mobile
+                      : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto' // Default hidden, show on desktop hover
+                  }`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isExpanded ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <button 
+                    onClick={() => handleMobileExpand(index)} 
+                    className="absolute top-3 right-3 text-cream-100/70 hover:text-cream-50 md:hidden z-30 p-1"
+                    aria-label="Close details"
+                  >
+                    <X size={24} />
+                  </button>
+                  <span className="mb-3 text-cream-50">{React.cloneElement(feature.icon, { className: "w-8 h-8 md:w-10 md:h-10" })}</span>
+                  <h3 className="text-lg md:text-xl font-semibold text-cream-50 mb-2">{feature.title}</h3>
+                  <p className="text-cream-100 text-sm md:text-base leading-relaxed max-w-xs mx-auto">{feature.details}</p>
+                </motion.div>
               </motion.div>
             );
           })}
