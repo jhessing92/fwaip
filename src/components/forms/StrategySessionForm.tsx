@@ -23,9 +23,20 @@ const StrategySessionForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Trim all string values
+    const trimmedData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => 
+        [key, typeof value === 'string' ? value.trim() : value]
+      )
+    );
+    
     await submitForm({
-      ...formData,
+      ...trimmedData,
       formName: 'Strategy Session',
+      timestamp: new Date().toISOString(),
+      formSource: source || 'direct',
+      ctaText: ctaText || '',
     });
   };
 

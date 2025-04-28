@@ -19,10 +19,20 @@ const NewsletterForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setEmail(formData.email); // Store email for questionnaire
+    
+    // Trim all string values
+    const trimmedData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => 
+        [key, typeof value === 'string' ? value.trim() : value]
+      )
+    );
+    
+    setEmail(trimmedData.email); // Store email for questionnaire
     await submitForm({
-      ...formData,
+      ...trimmedData,
       formName: 'Newsletter Subscription',
+      timestamp: new Date().toISOString(),
+      formSource: source || 'direct',
     });
   };
 

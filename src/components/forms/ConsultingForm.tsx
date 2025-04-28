@@ -25,9 +25,20 @@ const ConsultingForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Trim all string values
+    const trimmedData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => 
+        [key, typeof value === 'string' ? value.trim() : value]
+      )
+    );
+    
     await submitForm({
-      ...formData,
+      ...trimmedData,
       formName: 'Consulting Request',
+      timestamp: new Date().toISOString(),
+      formSource: source || 'direct',
+      ctaText: ctaText || '',
     });
   };
 

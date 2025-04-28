@@ -89,8 +89,11 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     try {
+      // Log the webhook data for debugging
+      console.log('Sending webhook data:', webhookData);
+      
       // Send data to the webhook
-      const response = await fetch('https://hook.us1.make.com/ovwktul99fmajumfkagt8vhpvgt2nv7d', {
+      const response = await fetch('https://hook.us1.make.com/6dmijlo88kt0rf3drl5o3gv7gsj44t3c', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
