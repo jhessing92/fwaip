@@ -185,7 +185,7 @@ export const SolutionShowcase: React.FC = () => {
     <section 
       ref={sectionRef}
       id="solutions"
-      className="pt-28 md:pt-32 pb-16 md:pb-24 bg-gray-50 relative overflow-hidden border-t-0"
+      className="pt-12 md:pt-16 pb-16 md:pb-24 bg-gray-50 relative overflow-hidden border-t-0"
     >
       {/* Off-white Wave Divider at the top */}
       <div 

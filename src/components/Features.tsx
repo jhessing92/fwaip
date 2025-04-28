@@ -88,7 +88,7 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-40 md:pb-56 lg:pb-64 overflow-hidden relative"
+      className="bg-white pt-12 md:pt-24 lg:pt-32 pb-28 md:pb-40 lg:pb-48 overflow-hidden relative"
     >
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
