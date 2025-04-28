@@ -185,14 +185,15 @@ export const SolutionShowcase: React.FC = () => {
     <section 
       ref={sectionRef}
       id="solutions"
-      className="pt-12 md:pt-16 pb-16 md:pb-24 bg-gray-50 relative overflow-hidden border-t-0"
+      className="pt-16 md:pt-20 pb-16 md:pb-24 bg-gray-50 relative overflow-hidden border-t-0"
     >
-      {/* Background Elements - Keep this or make it match gray-50? Let's simplify */}
+      {/* Background Elements - ensure they match bg-gray-50 */}
       <div className="absolute inset-0 bg-gray-50">
-        {/* Removed gradient and patterns, just using plain bg-gray-50 */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(81,147,179,0.05),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(81,147,179,0.03)_1px,transparent_1px)] bg-[length:32px_32px]" />
       </div>
 
-      {/* Wave coming from Features is already #f8fafc (gray-50), so it will blend */}
+      {/* Removed wave divider from here */}
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
