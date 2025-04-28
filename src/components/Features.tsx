@@ -3,7 +3,17 @@ import { Brain, Cog, Network, LineChart, Building2, Users, ChevronRight, X } fro
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-const features = [
+// Feature type definition
+interface Feature {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  details: string;
+  image: string;
+  color: string;
+}
+
+const features: Feature[] = [
   {
     icon: <Cog className="w-8 h-8" />,
     title: 'SmartStack™',
@@ -54,6 +64,166 @@ const features = [
   }
 ];
 
+// Props interfaces for components
+interface DesktopFeatureCardProps {
+  feature: Feature;
+  index: number;
+  inView: boolean;
+}
+
+interface MobileFeatureCardProps {
+  feature: Feature;
+  index: number;
+  inView: boolean;
+  isExpanded: boolean;
+  onToggleExpand: (index: number) => void;
+}
+
+// Desktop Feature Card with hover interaction
+const DesktopFeatureCard = ({ feature, index, inView }: DesktopFeatureCardProps) => {
+  const featureVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        delay: index * 0.1,
+        duration: 0.5 
+      }
+    }
+  };
+
+  return (
+    <motion.div
+      className="hidden md:flex flex-col rounded-xl overflow-hidden bg-white relative shadow-lg group cursor-pointer"
+      variants={featureVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      custom={index}
+    >
+      <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
+        <motion.img
+          src={feature.image} 
+          alt={feature.title}
+          className="w-full h-full object-cover object-center max-w-full align-middle border-none"
+          loading="lazy"
+          width={600}
+          height={338}
+          decoding="async"
+        />
+      </div>
+      <div className="relative flex-1 flex flex-col justify-between bg-primary-900 px-5 py-5">
+        <div>
+          <h3 className="text-xl font-bold text-cream-50 mb-2">
+            {feature.title}
+          </h3>
+          <p className="text-cream-100 text-sm mb-4 line-clamp-2">
+            {feature.description}
+          </p>
+        </div>
+        <span 
+          className="mt-auto pt-1 flex items-center text-secondary-400 font-medium text-sm group-hover:opacity-0 transition-opacity duration-200"
+          aria-hidden="true"
+        >
+          Learn more <ChevronRight size={14} className="ml-1" />
+        </span>
+      </div>
+      
+      {/* Desktop hover overlay */}
+      <motion.div
+        className="absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 
+          opacity-0 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto scale-95 
+          transition-all duration-300"
+        initial={false}
+      >
+        <span className="mb-3 text-cream-50">{feature.icon}</span>
+        <h3 className="text-xl font-semibold text-cream-50 mb-2">{feature.title}</h3>
+        <p className="text-cream-100 text-base leading-relaxed max-w-xs mx-auto">{feature.details}</p>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// Mobile Feature Card with click-to-expand interaction
+const MobileFeatureCard = ({ feature, index, inView, isExpanded, onToggleExpand }: MobileFeatureCardProps) => {
+  const featureVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        delay: index * 0.1,
+        duration: 0.5 
+      }
+    }
+  };
+
+  return (
+    <motion.div
+      className="flex md:hidden flex-col rounded-xl overflow-hidden bg-white relative shadow-lg"
+      variants={featureVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      custom={index}
+    >
+      <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
+        <motion.img
+          src={feature.image} 
+          alt={feature.title}
+          className="w-full h-full object-cover object-center max-w-full align-middle border-none"
+          loading="lazy"
+          width={600}
+          height={338}
+          decoding="async"
+        />
+      </div>
+      <div className="relative flex-1 flex flex-col justify-between bg-primary-900 px-4 py-4">
+        <div>
+          <h3 className="text-lg font-bold text-cream-50 mb-1.5">
+            {feature.title}
+          </h3>
+          <p className="text-cream-100 text-sm mb-3 line-clamp-2">
+            {feature.description}
+          </p>
+        </div>
+        <motion.button 
+          className="mt-auto pt-1 flex items-center text-secondary-400 font-medium text-xs"
+          onClick={() => onToggleExpand(index)}
+          aria-label={`Learn more about ${feature.title}`}
+          whileHover={{ x: 3 }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+        >
+          Learn more <ChevronRight size={14} className="ml-1" />
+        </motion.button>
+      </div>
+      
+      {/* Mobile expand overlay with AnimatePresence for proper enter/exit animations */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            className="absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+          >
+            <button 
+              onClick={() => onToggleExpand(index)} 
+              className="absolute top-3 right-3 text-cream-100/70 hover:text-cream-50 z-30 p-1"
+              aria-label="Close details"
+            >
+              <X size={24} />
+            </button>
+            <span className="mb-3 text-cream-50">{feature.icon}</span>
+            <h3 className="text-lg font-semibold text-cream-50 mb-2">{feature.title}</h3>
+            <p className="text-cream-100 text-sm leading-relaxed max-w-xs mx-auto">{feature.details}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
 export default function Features() {
   const [headerRef, headerInView] = useInView({
     triggerOnce: true,
@@ -71,18 +241,6 @@ export default function Features() {
     threshold: 0.1,
     delay: 100
   }));
-
-  const featureVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({ 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        delay: i * 0.1,
-        duration: 0.5 
-      }
-    })
-  };
 
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
   
@@ -118,72 +276,22 @@ export default function Features() {
             const isExpanded = expandedCardIndex === index;
             
             return (
-              <motion.div
-                key={index}
-                ref={ref}
-                className="flex flex-col rounded-xl overflow-hidden bg-white relative shadow-lg group cursor-pointer"
-                variants={featureVariants}
-                initial="hidden"
-                animate={inView ? "visible" : "hidden"}
-                custom={index}
-              >
-                <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
-                  <motion.img
-                    src={feature.image} 
-                    alt={feature.title}
-                    className="w-full h-full object-cover object-center max-w-full align-middle border-none"
-                    loading="lazy"
-                    width={600}
-                    height={338}
-                    decoding="async"
-                  />
-                </div>
-                <div className="relative flex-1 flex flex-col justify-between bg-primary-900 px-4 py-4 md:px-5 md:py-5">
-                  <div>
-                    <h3 className="text-lg md:text-xl font-bold text-cream-50 mb-1.5 md:mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-cream-100 text-sm mb-3 md:mb-4 line-clamp-2">
-                      {feature.description}
-                    </p>
-                  </div>
-                  <motion.button 
-                    className="mt-auto pt-1 flex items-center text-secondary-400 font-medium text-xs md:text-sm group-hover:opacity-0 md:group-hover:pointer-events-none transition-opacity duration-200"
-                    onClick={() => handleMobileExpand(index)}
-                    aria-label={`Learn more about ${feature.title}`}
-                    whileHover={{ x: 3 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  >
-                    Learn more <ChevronRight size={14} className="ml-1" />
-                  </motion.button>
-                </div>
+              <React.Fragment key={index}>
+                {/* Render separate components for mobile and desktop */}
+                <DesktopFeatureCard 
+                  feature={feature} 
+                  index={index} 
+                  inView={inView} 
+                />
                 
-                {/* Hover/Expand overlay: covers whole card, shows icon + details */}
-                <motion.div
-                  className={`absolute inset-0 bg-primary-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center text-center p-4 transition-all duration-300 ${
-                    isExpanded 
-                      ? 'opacity-100 pointer-events-auto scale-100' // Always show if expanded on mobile
-                      : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:scale-100 md:group-hover:pointer-events-auto scale-95' // Default hidden, show on desktop hover
-                  }`}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ 
-                    opacity: isExpanded ? 1 : 0,
-                    scale: isExpanded ? 1 : 0.95
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <button 
-                    onClick={() => handleMobileExpand(index)} 
-                    className="absolute top-3 right-3 text-cream-100/70 hover:text-cream-50 md:hidden z-30 p-1"
-                    aria-label="Close details"
-                  >
-                    <X size={24} />
-                  </button>
-                  <span className="mb-3 text-cream-50">{React.cloneElement(feature.icon, { className: "w-8 h-8 md:w-10 md:h-10" })}</span>
-                  <h3 className="text-lg md:text-xl font-semibold text-cream-50 mb-2">{feature.title}</h3>
-                  <p className="text-cream-100 text-sm md:text-base leading-relaxed max-w-xs mx-auto">{feature.details}</p>
-                </motion.div>
-              </motion.div>
+                <MobileFeatureCard 
+                  feature={feature} 
+                  index={index} 
+                  inView={inView} 
+                  isExpanded={isExpanded}
+                  onToggleExpand={handleMobileExpand}
+                />
+              </React.Fragment>
             );
           })}
         </div>
