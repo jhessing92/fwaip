@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Brain, Cog, Network, LineChart, Building2, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, X } from 'lucide-react';
 
 const features = [
   {
@@ -85,6 +85,12 @@ export default function Features() {
     })
   };
 
+  const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
+  
+  const handleMobileExpand = (index: number) => {
+    setExpandedCardIndex(expandedCardIndex === index ? null : index);
+  };
+
   return (
     <section 
       id="features" 
@@ -109,12 +115,13 @@ export default function Features() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {features.map((feature, index) => {
             const [ref, inView] = featureRefs[index];
+            const isExpanded = expandedCardIndex === index;
             
             return (
               <motion.div
                 key={index}
                 ref={ref}
-                className="group flex flex-col rounded-xl overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1 bg-white relative"
+                className="group flex flex-col rounded-xl overflow-hidden transform transition-all bg-white relative shadow-lg md:hover:shadow-xl md:hover:-translate-y-1"
                 variants={featureVariants}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
@@ -126,10 +133,6 @@ export default function Features() {
                     src={feature.image}
                     alt={feature.title}
                     className="w-full h-full object-cover object-center max-w-full align-middle border-none"
-                    whileHover={{ 
-                      scale: 1.05,
-                      transition: { duration: 0.4 }
-                    }}
                     loading="lazy"
                     width="600"
                     height="338"
@@ -137,8 +140,8 @@ export default function Features() {
                   />
                 </div>
                 {/* Title + short description area, always dark background */}
-                <div className="relative flex-1 flex flex-col justify-between bg-primary-900 px-5 md:px-6 py-5">
-                  <div>
+                <div className="relative flex-1 flex flex-col justify-between bg-primary-900 px-0 md:px-6 py-5">
+                  <div className="px-5 md:px-0"> 
                     <h3 className="text-xl md:text-2xl font-bold text-cream-50 mb-2">
                       {feature.title}
                     </h3>
@@ -146,23 +149,32 @@ export default function Features() {
                       {feature.description}
                     </p>
                   </div>
-                  {/* Learn more link: visible normally, hidden on hover */}
-                  <motion.div 
-                    className="mt-auto pt-2 flex items-center text-secondary-400 font-medium text-sm md:block group-hover:hidden"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  {/* Learn more button: Triggers expand on mobile */}
+                  <motion.button 
+                    className="mt-auto pt-2 flex items-center text-secondary-400 font-medium text-sm px-5 md:px-0 pb-0 md:pb-5 md:block group-hover:hidden"
+                    onClick={() => handleMobileExpand(index)}
+                    aria-label={`Learn more about ${feature.title}`}
                   >
                     Learn more <ChevronRight size={16} className="ml-1" />
-                  </motion.div>
+                  </motion.button>
                 </div>
-                {/* Hover overlay: covers whole card, shows icon + details (desktop only) */}
+                
+                {/* Hover/Expand overlay: covers whole card, shows icon + details */}
                 <motion.div
-                  className="hidden md:flex flex-col items-center justify-center text-center p-5 absolute inset-0 bg-primary-900/95 backdrop-blur-sm group-hover:flex group-hover:opacity-100 opacity-0 transition-opacity duration-300 z-20"
+                  className={`absolute inset-0 bg-primary-900/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-5 transition-opacity duration-300 ${
+                    isExpanded ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto'
+                  }`}
                   initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  animate={{ opacity: isExpanded ? 1 : 0 }}
                 >
-                  <span className="mb-3 text-cream-50">{feature.icon}</span>
+                  <button 
+                    onClick={() => handleMobileExpand(index)} 
+                    className="absolute top-3 right-3 text-cream-100/70 hover:text-cream-50 md:hidden"
+                    aria-label="Close details"
+                  >
+                    <X size={24} />
+                  </button>
+                  <span className="mb-3 text-cream-50">{React.cloneElement(feature.icon, { className: "w-10 h-10" })}</span>
                   <h3 className="text-lg font-semibold text-cream-50 mb-2">{feature.title}</h3>
                   <p className="text-cream-100 text-sm leading-relaxed">{feature.details}</p>
                 </motion.div>
