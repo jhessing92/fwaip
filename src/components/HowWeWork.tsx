@@ -20,10 +20,114 @@ import {
   MousePointer,
   ArrowDown,
   PanelLeftClose,
-  Sparkles
+  Sparkles,
+  Lock,
+  KeyRound,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 
+// Password protection component
+const PasswordProtection = ({ onAuthenticate }: { onAuthenticate: () => void }) => {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Check if password is correct (case-insensitive)
+    if (password.toLowerCase() === "tangential") {
+      // Store authentication in localStorage
+      localStorage.setItem("howWeWorkAuthenticated", "true");
+      onAuthenticate();
+    } else {
+      setError("Incorrect password. Please try again.");
+      setPassword("");
+    }
+  };
+  
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-primary-950 via-primary-900 to-primary-800 flex items-center justify-center">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 max-w-md w-full">
+        <div className="flex items-center justify-center mb-6">
+          <div className="bg-primary-100 dark:bg-gray-700 p-3 rounded-full">
+            <Lock className="h-8 w-8 text-primary-800 dark:text-secondary-400" />
+          </div>
+        </div>
+        <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-2">Protected Content</h2>
+        <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
+          This page is password protected. Please enter the password to continue.
+        </p>
+        
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="block w-full px-4 py-2 mt-1 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Enter password"
+                required
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-400" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-400" />
+                )}
+              </button>
+            </div>
+          </div>
+          
+          {error && (
+            <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded">
+              {error}
+            </div>
+          )}
+          
+          <button
+            type="submit"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          >
+            <KeyRound className="h-5 w-5 mr-2" />
+            Access Content
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 export const HowWeWork = () => {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  // Check for authentication on mount
+  useEffect(() => {
+    const authenticated = localStorage.getItem("howWeWorkAuthenticated") === "true";
+    setIsAuthenticated(authenticated);
+  }, []);
+  
+  // Handle authentication
+  const handleAuthentication = () => {
+    setIsAuthenticated(true);
+  };
+  
+  // If not authenticated, show password protection
+  if (!isAuthenticated) {
+    return <PasswordProtection onAuthenticate={handleAuthentication} />;
+  }
+  
   // Theme mode state (light/dark)
   const [darkMode, setDarkMode] = useState(false);
   
