@@ -397,18 +397,20 @@ export const HowWeWork = () => {
             </motion.p>
           </motion.div>
         </div>
-        
-        {/* Simplified scroll indicator */}
-        <motion.div 
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-20"
+      </section>
+
+      {/* Transition section with explore arrow */}
+      <section className={`relative py-6 ${darkMode ? 'bg-gray-850' : 'bg-primary-700'} flex justify-center items-center transition-colors duration-500`}>
+        <motion.div
+          className="flex flex-col items-center cursor-pointer"
           onClick={() => sectionRefs[0].current?.scrollIntoView?.({ behavior: 'smooth' })}
           whileHover={{ scale: 1.1 }}
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 5, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
         >
           <motion.p 
-            className="text-cream-100 text-sm mb-2 font-medium"
-            animate={{ opacity: [0.5, 1, 0.5] }}
+            className="text-cream-100 text-sm font-medium mb-2"
+            animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
             Explore
