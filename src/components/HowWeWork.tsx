@@ -319,7 +319,7 @@ export const HowWeWork = () => {
         )}
       </AnimatePresence>
       
-      {/* Hero Section with Enhanced Parallax Effect */}
+      {/* Hero Section with Enhanced Parallax Effect - Fixed Layout */}
       <section className={`relative h-[60vh] md:h-[70vh] bg-gradient-to-b ${darkMode ? 'from-gray-950 via-gray-900 to-gray-800' : 'from-primary-950 via-primary-900 to-primary-800'} flex items-center justify-center overflow-hidden transition-colors duration-500`}>
         <motion.div 
           className={`absolute inset-0 z-0 ${bgPatternClass} bg-[length:32px_32px]`}
@@ -330,7 +330,7 @@ export const HowWeWork = () => {
         
         {/* Floating particles effect */}
         <div className="absolute inset-0 overflow-hidden">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {Array.from({ length: 12 }).map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-1.5 h-1.5 rounded-full bg-secondary-400/30"
@@ -359,15 +359,18 @@ export const HowWeWork = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-center"
           >
+            {/* Sparkles icon positioned above the text, not behind it */}
             <motion.div
-              className="inline-block mb-4"
+              className="mb-8"
               animate={{ rotate: [0, 5, 0, -5, 0] }}
               transition={{ duration: 6, repeat: Infinity }}
             >
               <Sparkles size={40} className="text-secondary-400 mx-auto" />
             </motion.div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-cream-50 tracking-tight">
-              <span className="block">How We</span>
+            
+            {/* Simplified heading with better spacing */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 text-cream-50 tracking-tight">
+              <span className="block mb-2">How We</span>
               <motion.span 
                 className="relative inline-block bg-clip-text text-transparent bg-gradient-to-r from-secondary-400 to-cream-400"
                 animate={{ 
@@ -385,7 +388,7 @@ export const HowWeWork = () => {
             </h1>
             
             <motion.p 
-              className="text-xl md:text-2xl text-cream-100 max-w-3xl mx-auto opacity-90"
+              className="text-xl md:text-2xl text-cream-100 max-w-2xl mx-auto opacity-90"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.9 }}
               transition={{ delay: 0.6, duration: 1 }}
@@ -395,7 +398,7 @@ export const HowWeWork = () => {
           </motion.div>
         </div>
         
-        {/* Enhanced scroll indicator */}
+        {/* Simplified scroll indicator */}
         <motion.div 
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer"
           onClick={() => sectionRefs[0].current?.scrollIntoView({ behavior: 'smooth' })}
@@ -410,24 +413,12 @@ export const HowWeWork = () => {
           >
             Explore
           </motion.p>
-          <motion.div 
-            className="w-10 h-10 rounded-full border border-cream-100/30 flex items-center justify-center"
-            animate={{ 
-              boxShadow: [
-                "0 0 0 0 rgba(255, 245, 222, 0)", 
-                "0 0 0 10px rgba(255, 245, 222, 0.1)", 
-                "0 0 0 20px rgba(255, 245, 222, 0)"
-              ] 
-            }}
-            transition={{ repeat: Infinity, duration: 2 }}
-          >
-            <ArrowDown size={18} className="text-cream-100/70" />
-          </motion.div>
+          <ArrowDown size={18} className="text-cream-100/70" />
         </motion.div>
       </section>
 
       <div className={`container mx-auto px-4 py-16 md:py-24 transition-colors duration-500 ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>
-        {/* Enhanced Navigation dots for sections */}
+        {/* Simplified Navigation dots for sections */}
         <div className="hidden lg:flex fixed z-50 right-8 top-1/2 transform -translate-y-1/2 flex-col space-y-6">
           {Array.from({ length: 6 }).map((_, index) => (
             <motion.button
@@ -532,18 +523,6 @@ export const HowWeWork = () => {
                         {tier.description}
                       </p>
                       
-                      {/* Hidden stats that show on hover */}
-                      <motion.div 
-                        className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-600 text-sm text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        initial={{ opacity: 0, height: 0 }}
-                        whileHover={{ opacity: 1, height: 'auto' }}
-                      >
-                        <div className="flex justify-between">
-                          <span className="text-secondary-500">{tier.stats.implementations} Implementations</span>
-                          <span className="text-secondary-500">{tier.stats.avgTimeToValue}</span>
-                        </div>
-                      </motion.div>
-                      
                       {/* Interactive button */}
                       <motion.button
                         className={`mt-4 text-xs w-full py-1.5 px-3 rounded ${darkMode ? 'bg-gray-800 text-secondary-400 hover:bg-gray-900' : 'bg-primary-50 text-primary-700 hover:bg-primary-100'} transition-colors duration-300 flex items-center justify-center`}
@@ -576,379 +555,6 @@ export const HowWeWork = () => {
           </div>
         </motion.section>
         
-        {/* Section 2: Pre-Qualification Framework */}
-        <motion.section 
-          ref={sectionRefs[1]}
-          className="mb-24"
-          variants={containerVariants}
-          initial="hidden"
-          animate={sectionInView[1] ? "visible" : "hidden"}
-        >
-          <motion.div 
-            className="flex items-center mb-8 gap-3"
-            variants={itemVariants}
-          >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800">
-              <Users size={24} />
-            </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-800">
-              Pre-Qualification Framework
-            </h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-3 gap-6 md:gap-10">
-            <motion.div 
-              className="col-span-1 bg-gray-50 p-6 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">The Challenge</h3>
-              <p className="text-gray-700">Sales teams are securing meetings but not qualifying deeply.</p>
-            </motion.div>
-            
-            <motion.div 
-              className="col-span-2 bg-gradient-to-br from-primary-50 to-primary-100 p-8 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">Our Solution</h3>
-              <p className="mb-6 font-medium text-primary-800">
-                <span className="inline-flex items-center bg-white px-3 py-1 rounded-full shadow-sm">
-                  <Check size={16} className="mr-2 text-secondary-500" />
-                  Introduce a 5-question qualification checklist
-                </span>
-              </p>
-              
-              <div className="space-y-4">
-                {[
-                  { question: "Size", detail: "50+ employees or $25M+ revenue?" },
-                  { question: "Urgency", detail: "\"We know we need AI\" vs \"We want to learn about AI\"?" },
-                  { question: "Pain Point", detail: "Clear business challenge surfaced?" },
-                  { question: "Budget", detail: "Any preliminary budget awareness?" },
-                  { question: "Department", detail: "Ops, Finance, CX, IT, etc.?" }
-                ].map((item, index) => (
-                  <motion.div 
-                    key={index}
-                    className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
-                    whileHover={{ x: 5 }}
-                    variants={cardVariants}
-                    onMouseEnter={() => setHoveredItem(index)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`flex items-center justify-center w-8 h-8 rounded-full text-white ${hoveredItem === index ? 'bg-secondary-500' : 'bg-primary-600'} transition-colors duration-300`}>
-                        {index + 1}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-primary-900">{item.question}</h4>
-                        <p className="text-gray-600">{item.detail}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </motion.section>
-        
-        {/* Section 3: Revenue Model */}
-        <motion.section 
-          ref={sectionRefs[2]}
-          className="mb-24"
-          variants={containerVariants}
-          initial="hidden"
-          animate={sectionInView[2] ? "visible" : "hidden"}
-        >
-          <motion.div 
-            className="flex items-center mb-8 gap-3"
-            variants={itemVariants}
-          >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800">
-              <DollarSign size={24} />
-            </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-800">
-              Revenue Model + Engagement Structure
-            </h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-3 gap-6 md:gap-10">
-            <motion.div 
-              className="col-span-1 bg-gray-50 p-6 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">The Challenge</h3>
-              <p className="text-gray-700">Potential partners want to understand: "How do we all make money together?"</p>
-            </motion.div>
-            
-            <motion.div 
-              className="col-span-2 bg-gradient-to-br from-primary-50 to-primary-100 p-8 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">Our Solution</h3>
-              <p className="mb-6 font-medium text-primary-800">
-                <span className="inline-flex items-center bg-white px-3 py-1 rounded-full shadow-sm">
-                  <Check size={16} className="mr-2 text-secondary-500" />
-                  Two primary paths to value creation
-                </span>
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <motion.div
-                  className="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-lg"
-                  whileHover={{ scale: 1.03 }}
-                  variants={cardVariants}
-                >
-                  <div className="bg-primary-700 text-white p-4">
-                    <h4 className="text-lg font-semibold">Transactional Commission</h4>
-                  </div>
-                  <div className="p-6">
-                    <p>When Flywheel refers a vendor.</p>
-                    <div className="mt-4 p-3 bg-primary-50 rounded-lg">
-                      <ul className="space-y-2">
-                        <li className="flex items-center gap-2">
-                          <Check size={16} className="text-green-500" />
-                          <span>Percentage-based referral fees</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Check size={16} className="text-green-500" />
-                          <span>Revenue sharing with partners</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  className="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-lg"
-                  whileHover={{ scale: 1.03 }}
-                  variants={cardVariants}
-                >
-                  <div className="bg-secondary-500 text-white p-4">
-                    <h4 className="text-lg font-semibold">Service Revenue</h4>
-                  </div>
-                  <div className="p-6">
-                    <p>When Flywheel sells advisory or builds internal solutions.</p>
-                    <div className="mt-4 p-3 bg-primary-50 rounded-lg">
-                      <ul className="space-y-2">
-                        <li className="flex items-center gap-2">
-                          <Check size={16} className="text-green-500" />
-                          <span>Project-based fixed fees</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Check size={16} className="text-green-500" />
-                          <span>Ongoing support subscriptions</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </motion.section>
-        
-        {/* Section 4: Internal Enablement Tools */}
-        <motion.section 
-          ref={sectionRefs[3]}
-          className="mb-24"
-          variants={containerVariants}
-          initial="hidden"
-          animate={sectionInView[3] ? "visible" : "hidden"}
-        >
-          <motion.div 
-            className="flex items-center mb-8 gap-3"
-            variants={itemVariants}
-          >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800">
-              <Lightbulb size={24} />
-            </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-800">
-              Internal Enablement Tools
-            </h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-3 gap-6 md:gap-10">
-            <motion.div 
-              className="col-span-1 bg-gray-50 p-6 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">The Challenge</h3>
-              <p className="text-gray-700">Sales teams need lightweight, clear tools to pitch Flywheel.</p>
-            </motion.div>
-            
-            <motion.div 
-              className="col-span-2 bg-gradient-to-br from-primary-50 to-primary-100 p-8 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">Our Solution</h3>
-              <p className="mb-6 font-medium text-primary-800">
-                <span className="inline-flex items-center bg-white px-3 py-1 rounded-full shadow-sm">
-                  <Check size={16} className="mr-2 text-secondary-500" />
-                  Develop a comprehensive "Sales Kit"
-                </span>
-              </p>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[
-                  { title: "One-Pager", desc: "Who We Are and What We Solve", icon: <FileText size={24} /> },
-                  { title: "FAQ Cheat Sheet", desc: "Answering common questions", icon: <LayoutList size={24} /> },
-                  { title: "Discovery Questions", desc: "Effective qualifying questions", icon: <Lightbulb size={24} /> },
-                  { title: "Engagement Pathway", desc: "Visual process diagram", icon: <Workflow size={24} /> }
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white rounded-lg shadow-md p-5 text-center hover:bg-primary-600 hover:text-white group transition-all duration-300"
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    variants={cardVariants}
-                  >
-                    <div className="flex justify-center items-center mb-3">
-                      <div className="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center text-primary-700 group-hover:bg-white group-hover:text-primary-700 transition-colors duration-300">
-                        {item.icon}
-                      </div>
-                    </div>
-                    <h4 className="font-semibold text-primary-900 group-hover:text-white transition-colors duration-300">{item.title}</h4>
-                    <p className="text-sm text-gray-600 group-hover:text-white/90 transition-colors duration-300 mt-1">{item.desc}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </motion.section>
-        
-        {/* Section 5: Role Clarification */}
-        <motion.section 
-          ref={sectionRefs[4]}
-          className="mb-24"
-          variants={containerVariants}
-          initial="hidden"
-          animate={sectionInView[4] ? "visible" : "hidden"}
-        >
-          <motion.div 
-            className="flex items-center mb-8 gap-3"
-            variants={itemVariants}
-          >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800">
-              <Briefcase size={24} />
-            </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-800">
-              Role Clarification
-            </h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-3 gap-6 md:gap-10">
-            <motion.div 
-              className="col-span-1 bg-gray-50 p-6 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">The Challenge</h3>
-              <p className="text-gray-700">Partners ask: "Are you just advisors or do you deploy?"</p>
-            </motion.div>
-            
-            <motion.div 
-              className="col-span-2 bg-gradient-to-br from-primary-50 to-primary-100 p-8 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">Our Solution</h3>
-              <p className="mb-6 font-medium text-primary-800">
-                <span className="inline-flex items-center bg-white px-3 py-1 rounded-full shadow-sm">
-                  <Check size={16} className="mr-2 text-secondary-500" />
-                  Define a simple, phased model
-                </span>
-              </p>
-              
-              <div className="overflow-x-auto rounded-xl shadow-md">
-                <table className="min-w-full bg-white">
-                  <thead>
-                    <tr>
-                      <th className="py-3 px-4 text-left bg-primary-700 text-white font-semibold rounded-tl-lg">Phase</th>
-                      <th className="py-3 px-4 text-left bg-primary-700 text-white font-semibold">Flywheel Role</th>
-                      <th className="py-3 px-4 text-left bg-primary-700 text-white font-semibold rounded-tr-lg">Revenue Model</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {phasedModel.map((phase, index) => (
-                      <motion.tr 
-                        key={index}
-                        className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-primary-50 transition-colors duration-200`}
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.01, x: 5 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                        <td className="py-3 px-4 border-b font-medium text-primary-800">{phase.phase}</td>
-                        <td className="py-3 px-4 border-b text-gray-700">{phase.role}</td>
-                        <td className="py-3 px-4 border-b text-gray-700">{phase.revenue}</td>
-                      </motion.tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </motion.div>
-          </div>
-        </motion.section>
-        
-        {/* Section 6: Lead Segmentation Strategy */}
-        <motion.section 
-          ref={sectionRefs[5]}
-          className="mb-24"
-          variants={containerVariants}
-          initial="hidden"
-          animate={sectionInView[5] ? "visible" : "hidden"}
-        >
-          <motion.div 
-            className="flex items-center mb-8 gap-3"
-            variants={itemVariants}
-          >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800">
-              <Target size={24} />
-            </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-800">
-              Lead Segmentation Strategy
-            </h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-3 gap-6 md:gap-10">
-            <motion.div 
-              className="col-span-1 bg-gray-50 p-6 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">The Challenge</h3>
-              <p className="text-gray-700">All meetings were being treated equally.</p>
-            </motion.div>
-            
-            <motion.div 
-              className="col-span-2 bg-gradient-to-br from-primary-50 to-primary-100 p-8 rounded-xl shadow-sm"
-              variants={itemVariants}
-            >
-              <h3 className="font-semibold text-xl mb-4 text-primary-900">Our Solution</h3>
-              <p className="mb-6 font-medium text-primary-800">
-                <span className="inline-flex items-center bg-white px-3 py-1 rounded-full shadow-sm">
-                  <Check size={16} className="mr-2 text-secondary-500" />
-                  Introduce tiering system for leads
-                </span>
-              </p>
-              
-              <div className="space-y-6">
-                {leadTiers.map((tier, index) => (
-                  <motion.div
-                    key={index}
-                    className={`bg-gradient-to-r ${tier.color} rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl text-white`}
-                    whileHover={{ scale: 1.02, x: 10 }}
-                    variants={cardVariants}
-                  >
-                    <div className="p-6 flex items-center">
-                      <div className="bg-white/20 w-14 h-14 rounded-full flex items-center justify-center mr-5 text-white font-bold">
-                        {index + 1}
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-semibold mb-1">{tier.tier}</h4>
-                        <p className="text-white/90">{tier.description}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </motion.section>
-        
         {/* Next Steps Section - Enhanced */}
         <motion.section
           variants={containerVariants}
@@ -959,9 +565,9 @@ export const HowWeWork = () => {
             'bg-gradient-to-br from-primary-900 to-primary-800'
           } rounded-2xl shadow-lg text-white mb-12 transition-colors duration-500 relative overflow-hidden`}
         >
-          {/* Animated background particles */}
+          {/* Animated background particles - reduced for cleaner look */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {Array.from({ length: 15 }).map((_, i) => (
+            {Array.from({ length: 8 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 rounded-full bg-secondary-400/20"
@@ -1041,7 +647,7 @@ export const HowWeWork = () => {
             </motion.div>
             
             <motion.div 
-              className="mt-12 flex items-center justify-center gap-4"
+              className="mt-12 flex items-center justify-center gap-4 flex-wrap"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
