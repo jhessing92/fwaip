@@ -1189,6 +1189,23 @@ export const HowWeWork = () => {
           </motion.div>
         </motion.section>
       </div>
+      
+      {/* Feature to log out if needed */}
+      <div className="fixed bottom-4 left-4 z-50">
+        <button
+          onClick={() => {
+            localStorage.removeItem("howWeWorkAuthenticated");
+            setIsAuthenticated(false);
+          }}
+          className={`flex items-center p-2 text-xs rounded-full ${
+            darkMode ? 'bg-gray-800 text-gray-400 hover:text-gray-300' : 'bg-white text-gray-500 hover:text-gray-700'
+          } shadow-md transition-colors`}
+          title="Log out"
+        >
+          <KeyRound size={14} className="mr-1" />
+          <span>Logout</span>
+        </button>
+      </div>
     </div>
   );
 }; 
